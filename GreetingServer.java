@@ -3,6 +3,7 @@
 import java.net.*;
 import java.io.*;
 import java.lang.*;
+import java.util.*;
 
 
 public class GreetingServer extends Thread
@@ -24,19 +25,16 @@ public class GreetingServer extends Thread
          try
          {
             System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
-            Thread[] nodes_sender = new Thread[100];
             Thread[] nodes_reciever = new Thread[100];
-            Socket[] servers = new Socket[100];
+            ArrayList<Socket> clients = new ArrayList<Socket>(100);
             int count = 0;
             while(true){
-            	Socket server = serverSocket.accept();
-     		 	System.out.println("Just connected to " + server.getRemoteSocketAddress());
-     		 	servers[count] = server;
-     		 	nodes_sender[count] = new Thread(new Sender(server,servers,count));
-     		 	nodes_sender[count].start();
-     		 	// nodes_reciever[count] = new Thread(new Reciever(server,servers,count));
-     		 	// nodes_reciever[count].start();
-     		 	count++;
+            	Socket client = serverSocket.accept();
+         		 	System.out.println("Just connected to " + client.getRemoteSocketAddress());
+         		 	clients.add(client);
+         		 	nodes_reciever[count] = new Thread(new Echoer(client,clients));
+         		 	nodes_reciever[count].start();
+         		 	count++;
             }
     		
             

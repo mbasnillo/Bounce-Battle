@@ -1,13 +1,14 @@
 import java.net.*;
 import java.io.*;
 import java.lang.*;
+import java.util.*;
 
 public class Sender implements Runnable {
 	private Socket server;
-    private Socket[] nodes;
+    private ArrayList<Socket> nodes;
     private int id;
 
-	public Sender(Socket server,Socket[] nodes,int id){
+	public Sender(Socket server,ArrayList<Socket> nodes,int id){
 		this.server = server;
         this.nodes = nodes;
         this.id = id;
@@ -18,16 +19,21 @@ public class Sender implements Runnable {
         
         /* Read data from the ClientSocket */
       
-            while(true){
+           // while(true){
                 try{
-                    DataInputStream in = new DataInputStream(server.getInputStream());
-                    System.out.println(in.readUTF());
+                    //OutputStream outToServer = client.getOutputStream();
+         			//DataOutputStream out = new DataOutputStream(outToServer);
+         			
+         			for(int i = 0; i < nodes.size(); i++){
+         				if(i!=id){
+         					OutputStream outToClient = nodes.get(i).getOutputStream();
+         					DataOutputStream out = new DataOutputStream(outToClient);
+         				}
+         			}
                     //if(in.readUTF() == "quit()") break;
                 }catch(IOException e){
                 }
-            }
-
-        
+            //}
     }
 
 }

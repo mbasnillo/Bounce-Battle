@@ -12,7 +12,7 @@ public class GreetingClient
    	  String serverName = args[0]; //get IP address of server from first param
 	      int port = Integer.parseInt(args[1]); //get port from second param
 	      String name = args[2]; //get message from the third param
-	      Scanner sc = new Scanner(System.in);
+	     
 	      String message = "";
          /* Open a ClientSocket and connect to ServerSocket */
          System.out.println("Connecting to " + serverName + " on port " + port);
@@ -21,20 +21,16 @@ public class GreetingClient
 
 	      
          System.out.println("Just connected to " + client.getRemoteSocketAddress());
-         /* Send data to the ServerSocket */
+
          OutputStream outToServer = client.getOutputStream();
          DataOutputStream out = new DataOutputStream(outToServer);
-         
-	      /* Receive data from the ServerSocket */
-	      InputStream inFromServer = client.getInputStream();
-         //DataInputStream in = new DataInputStream(inFromServer);
-         //System.out.println("Server says " + in.readUTF());
-         //insert missing line for closing the socket from the client side
-         while(message!="quit()"){
-         	System.out.print(name+" : ");
-         	message = sc.nextLine();
-        	out.writeUTF(name +" : " +message);
-         }
+
+         Thread send2Server = new Thread(new SendToServer(client,out,name));
+         Thread reciever = new Thread(new Reciever(client,name));
+
+         send2Server.start();
+         reciever.run();
+
          client.close();
 
       }catch(IOException e)
