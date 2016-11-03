@@ -34,8 +34,8 @@ public class GreetingServer extends Thread
      		 	servers[count] = server;
      		 	nodes_sender[count] = new Thread(new Sender(server,servers,count));
      		 	nodes_sender[count].start();
-     		 	nodes_reciever[count] = new Thread(new Reciever(server,servers,count));
-     		 	nodes_reciever[count].start();
+     		 	// nodes_reciever[count] = new Thread(new Reciever(server,servers,count));
+     		 	// nodes_reciever[count].start();
      		 	count++;
             }
     		
