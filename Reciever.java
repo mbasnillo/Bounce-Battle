@@ -17,7 +17,6 @@ public class Reciever implements Runnable {
     	//Socket server = serverSocket.accept();
         
         /* Read data from the ClientSocket */
-      
             while(true){
                 try{
                     DataInputStream in = new DataInputStream(server.getInputStream());
@@ -26,6 +25,7 @@ public class Reciever implements Runnable {
                 }catch(IOException e){
                 }
             }
+
 
         
     }
