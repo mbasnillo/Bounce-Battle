@@ -1,3 +1,7 @@
+/*
+This is a thread for the clients to continously send messages to the server
+*/
+
 import java.net.*;
 import java.io.*;
 import java.lang.*;
@@ -5,35 +9,34 @@ import java.util.*;
 
 public class Sender implements Runnable {
 	private Socket server;
-    private ArrayList<Socket> nodes;
-    private int id;
+    private DataOutputStream out;
+    private String name;
+    private String message;
 
-	public Sender(Socket server,ArrayList<Socket> nodes,int id){
+	public Sender(Socket server,DataOutputStream out,String name){
 		this.server = server;
-        this.nodes = nodes;
-        this.id = id;
+        this.out = out;
+        this.name = name;
 	}
 
     public void run() {
     	//Socket server = serverSocket.accept();
         
         /* Read data from the ClientSocket */
-      
-           // while(true){
-                try{
-                    //OutputStream outToServer = client.getOutputStream();
-         			//DataOutputStream out = new DataOutputStream(outToServer);
-         			
-         			for(int i = 0; i < nodes.size(); i++){
-         				if(i!=id){
-         					OutputStream outToClient = nodes.get(i).getOutputStream();
-         					DataOutputStream out = new DataOutputStream(outToClient);
-         				}
-         			}
-                    //if(in.readUTF() == "quit()") break;
-                }catch(IOException e){
-                }
-            //}
+       Scanner sc = new Scanner(System.in);
+         while(message!="quit()"){ //infinite loop of listening
+            try{
+             //System.out.print(name+" : ");
+             message = sc.nextLine();
+             if(message.equals("quit()")){
+                System.out.println(name+" disconnected");
+                out.writeUTF(name+" disconnected");
+                break;
+             }
+             out.writeUTF(name +" : " +message);
+            }catch(IOException e){
+            }
+         }
     }
 
 }

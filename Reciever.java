@@ -13,24 +13,12 @@ public class Reciever implements Runnable {
     }
 
     public void run() {
-    	//Socket server = serverSocket.accept();
         
         /* Read data from the ClientSocket */
         boolean flag = true;
             while(true){
                 try{
                     DataInputStream in = new DataInputStream(server.getInputStream());
-
-                    
-                    for(int i = 0; i < name.length()+3; i++){
-                        try{
-                            Thread.sleep(10);
-                        System.out.print("\b");
-                        }catch(InterruptedException e){
-
-                        }
-                    }
-
                     System.out.println(in.readUTF());
                     //if(in.readUTF() == "quit()") break;
                 }catch(IOException e){
