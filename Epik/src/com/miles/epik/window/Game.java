@@ -6,9 +6,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 
+import javax.swing.JPanel;
+
 import com.miles.epik.framework.KeyInput;
 import com.miles.epik.framework.ObjectId;
 import com.miles.epik.objects.Player;
+import com.prince.epik.chat.Client;
 
 public class Game extends Canvas implements Runnable{
 
@@ -113,6 +116,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public static void main(String args[]){
+
 		new Window(800, 600, "Epic - Prototype", new Game());
 	}
 }

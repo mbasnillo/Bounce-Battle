@@ -28,11 +28,14 @@ public class Echoer implements Runnable {
     }
     public void broadcast(String message,Socket client) throws IOException{
         for(int i = 0; i < clients.size(); i++){
-            if(clients.get(i) != client){
-                OutputStream outToClient = clients.get(i).getOutputStream();
-                DataOutputStream out = new DataOutputStream(outToClient);
-                out.writeUTF(message);
-            }
+                try{
+                    OutputStream outToClient = clients.get(i).getOutputStream();
+                    DataOutputStream out = new DataOutputStream(outToClient);
+                    out.writeUTF(message);
+                    System.out.println(i+"\n");
+
+                }catch(IOException e){
+                }
         }
     }
 

@@ -2,6 +2,7 @@ package com.miles.epik.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -11,12 +12,13 @@ import com.miles.epik.window.Handler;
 
 public class Player extends GameObject {
 
-	private float width=48, height=96;
+	private float width=48, height=48;
 	
 	private float gravity = 0.5f;
 	private final float MAX_SPEED = 15;
 	private int jumpcount=2;
 	private Handler handler;
+	private float jumpPower = 0;
 	
 	public Player(float x, float y, Handler handler, ObjectId id) {
 		super(x, y, id);
@@ -61,6 +63,8 @@ public class Player extends GameObject {
 					falling = false;
 					jumping = false;
 					gliding = false;
+
+					if(this.jumpPower > 0)this.jump(-1);
 				}else{
 					falling = true;
 				}
@@ -78,7 +82,7 @@ public class Player extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect((int)x, (int)y, (int)width, (int)height);
+		g.fillOval((int)x, (int)y, (int)width, (int)height);
 		
 		/*
 		Graphics2D g2d = (Graphics2D) g;
@@ -88,6 +92,7 @@ public class Player extends GameObject {
 		g2d.draw(getBoundsLeft());
 		g2d.draw(getBoundsTop());
 		*/
+		
 	}
 
 	public Rectangle getBounds() {
@@ -103,10 +108,22 @@ public class Player extends GameObject {
 		return new Rectangle((int)x, (int)y+5, (int)5, (int)height-10);
 	}
 	
-	public void jump(){
-		jumping = true;
-		velY = -10;
+	public void jump(float i){
+		if(jumping == true){
+			//do nothing
+		}
+		else{
+			jumping = true;
+			velY = -jumpPower;
+		}
+		System.out.println(jumpPower);
+		jumpPower+= i;
 		//jumpcount--;
+	}
+	
+	public void incJumpPower(){
+		this.jumpPower+=0.1;
+		
 	}
 
 	public int getJumpcount() {

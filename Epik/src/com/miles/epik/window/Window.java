@@ -1,8 +1,12 @@
 package com.miles.epik.window;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import com.prince.epik.chat.Client;
 
 public class Window {
 	
@@ -12,14 +16,18 @@ public class Window {
 		game.setMaximumSize(new Dimension(w, h));
 		
 		JFrame frame = new JFrame(title);
-		frame.add(game);
+		frame.setLayout(new BorderLayout());
+		frame.add(game, BorderLayout.CENTER);
+		//frame.add(chat, BorderLayout.EAST);
 		frame.pack();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		game.start();
+
+		new Client();
 	}
 }

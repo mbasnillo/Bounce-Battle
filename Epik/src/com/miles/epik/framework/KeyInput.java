@@ -21,22 +21,21 @@ public class KeyInput extends KeyAdapter {
 			GameObject tempObject = handler.object.get(i);
 			
 			if(tempObject.getId() == ObjectId.Player){
-				if(key == KeyEvent.VK_D)tempObject.setVelX(5);
-				if(key == KeyEvent.VK_A)tempObject.setVelX(-5);
-				if(key == KeyEvent.VK_SPACE && !tempObject.isJumping()){
+				if(key == KeyEvent.VK_UP && !tempObject.isJumping()){
 					Player p;
 					p = (Player) tempObject;
 					if(p.getJumpcount()>0){
-						p.jump();
+						p.jump(10);
 					}
 				}
-				if(key == KeyEvent.VK_SPACE && tempObject.isJumping()){
+				if((key == KeyEvent.VK_UP && tempObject.isJumping()) || (key == KeyEvent.VK_RIGHT && tempObject.isJumping())){
 					Player p;
 					p = (Player) tempObject;
-					if(p.getJumpcount()>0){
-						p.jump();
-					}
+						p.incJumpPower();
 				}
+
+				if(key == KeyEvent.VK_RIGHT)tempObject.setVelX(5);
+				if(key == KeyEvent.VK_LEFT)tempObject.setVelX(-5);
  			}
 		}
 		
@@ -52,9 +51,9 @@ public class KeyInput extends KeyAdapter {
 			GameObject tempObject = handler.object.get(i);
 			
 			if(tempObject.getId() == ObjectId.Player){
-				if(key == KeyEvent.VK_D)tempObject.setVelX(0);
-				if(key == KeyEvent.VK_A)tempObject.setVelX(0);
-				if(key == KeyEvent.VK_W)tempObject.setVelY(0);
+				if(key == KeyEvent.VK_RIGHT)tempObject.setVelX(0);
+				if(key == KeyEvent.VK_LEFT)tempObject.setVelX(0);
+				//if(key == KeyEvent.VK_UP)tempObject.setVelY(0);
  			}
 		}
 	}
