@@ -74,7 +74,7 @@ public class Player extends GameObject {
 				}
 				
 				if(getBoundsLeft().intersects(tempObject.getBounds())){
-					x = tempObject.getX() + 32;
+					x = tempObject.getX() + width;
 				}
 			}
 		}

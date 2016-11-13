@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 
@@ -35,7 +36,9 @@ public class Game extends Canvas implements Runnable{
 		
 		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
 		
-		handler.createLevel();
+		try{
+			handler.createLevel();
+		}catch(IOException e){}
 		
 		this.addKeyListener(new KeyInput(handler));
 	}
