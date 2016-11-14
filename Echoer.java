@@ -1,3 +1,9 @@
+/*
+This is a thread for the server to continously recieve messages from the cleints
+and broadcast it to other client
+*/
+
+
 import java.net.*;
 import java.io.*;
 import java.lang.*;
@@ -15,8 +21,7 @@ public class Echoer implements Runnable {
 
 
     public void run() {
-            
-            while(true){
+            while(true){ //infinite loop of listening
                 try{
                     DataInputStream in = new DataInputStream(client.getInputStream());
                     String message = in.readUTF();
@@ -28,6 +33,7 @@ public class Echoer implements Runnable {
     }
     public void broadcast(String message,Socket client) throws IOException{
         for(int i = 0; i < clients.size(); i++){
+<<<<<<< HEAD
                 try{
                     OutputStream outToClient = clients.get(i).getOutputStream();
                     DataOutputStream out = new DataOutputStream(outToClient);
@@ -36,6 +42,13 @@ public class Echoer implements Runnable {
 
                 }catch(IOException e){
                 }
+=======
+            if(clients.get(i) != client){ //skip broadcast to the sender
+                OutputStream outToClient = clients.get(i).getOutputStream();
+                DataOutputStream out = new DataOutputStream(outToClient);
+                out.writeUTF(message);
+            }
+>>>>>>> e56b919e3b5d4d79178e358054aacae233829d72
         }
     }
 
