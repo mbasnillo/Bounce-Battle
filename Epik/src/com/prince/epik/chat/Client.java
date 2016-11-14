@@ -67,10 +67,12 @@ public class Client {
 	           // panel.setMinimumSize(new Dimension(600,600));
 	            panel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
 	            panel.add(new JScrollPane(southPanel), BorderLayout.SOUTH);
+	            panel.setSize(new Dimension(200,200));
+	            panel.revalidate();
 //	            frame.pack();
 //		 		
 //	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	            frame.setResizable(false);
+	          //  frame.setResizable(false);
 //	            frame.setLocationRelativeTo(null);
 //	            frame.setVisible(true);
 //	            frame.setTitle("Chat Box: <"+ name + ">");

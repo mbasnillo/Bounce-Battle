@@ -12,14 +12,14 @@ public class Window {
 	
 	public Window(int w, int h, String title, Game game){
 		game.setPreferredSize(new Dimension(w, h));
-		//game.setMinimumSize(new Dimension(w, h));
-		//game.setMaximumSize(new Dimension(w, h));
+		game.setMinimumSize(new Dimension(w, h));
+		game.setMaximumSize(new Dimension(w, h));
 		JPanel chat = new JPanel();
-		chat.setPreferredSize(new Dimension(600,600));
+		chat.setPreferredSize(new Dimension(200,200));
 		
 		JFrame frame = new JFrame(title);
 		frame.setLayout(new BorderLayout());
-		frame.add(game, BorderLayout.WEST);
+		frame.add(game, BorderLayout.CENTER);
 		frame.add(chat, BorderLayout.EAST);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
