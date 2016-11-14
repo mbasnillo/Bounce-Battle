@@ -20,7 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Client {
-	public Client(){
+	public Client(JPanel panel){
 		 JFrame frame = new JFrame("Setup");
 
 		    // prompt the user to enter their name
@@ -31,10 +31,6 @@ public class Client {
 		    // get the user's input. note that if they press Cancel, 'name' will be null
 		 System.out.printf("The user's name is '%s'.\n", name);
 	      try{
-
-	    	  
-	    	  
-	    	  
 	         /* Open a ClientSocket and connect to ServerSocket */
 	         System.out.println("Connecting to " + serverName + " on port " + port);
 	         //creating a new socket for client and binding it to a port
@@ -65,18 +61,19 @@ public class Client {
 	         southPanel.add(messageBox,BorderLayout.CENTER);
 	         southPanel.add(sendMessage,BorderLayout.EAST);
 	         
-	            frame = new JFrame();
-	            frame.setLayout(new BorderLayout());
-
-	            frame.add(new JScrollPane(chatBox), BorderLayout.CENTER);
-	            frame.add(new JScrollPane(southPanel), BorderLayout.SOUTH);
-	            frame.pack();
-		 		
-	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	           // panel = new JPanel();
+	            panel.setLayout(new BorderLayout());
+	            panel.setBackground(Color.RED);
+	            panel.setMinimumSize(new Dimension(600,600));
+	            panel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
+	            panel.add(new JScrollPane(southPanel), BorderLayout.SOUTH);
+//	            frame.pack();
+//		 		
+//	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	            frame.setResizable(false);
-	            frame.setLocationRelativeTo(null);
-	            frame.setVisible(true);
-	            frame.setTitle("Chat Box: <"+ name + ">");
+//	            frame.setLocationRelativeTo(null);
+//	            frame.setVisible(true);
+//	            frame.setTitle("Chat Box: <"+ name + ">");
 	         System.out.println("Just connected to " + client.getRemoteSocketAddress());
 
 	         OutputStream outToServer = client.getOutputStream();

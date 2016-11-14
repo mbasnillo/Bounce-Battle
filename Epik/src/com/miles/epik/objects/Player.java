@@ -24,6 +24,10 @@ public class Player extends GameObject {
 		super(x, y, id);
 		this.handler = handler;
 	}
+	
+	public void getPosition(){
+		System.out.println(x + " , " + y);
+	}
 
 	public void tick(LinkedList<GameObject> object) {
 		x += velX;
@@ -45,6 +49,7 @@ public class Player extends GameObject {
 		}
 		
 		collision(object);
+		getPosition();
 	}
 	
 	private void collision(LinkedList<GameObject> object){
