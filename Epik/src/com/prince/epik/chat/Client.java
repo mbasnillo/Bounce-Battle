@@ -63,8 +63,8 @@ public class Client {
 	         
 	           // panel = new JPanel();
 	            panel.setLayout(new BorderLayout());
-	            panel.setBackground(Color.RED);
-	            panel.setMinimumSize(new Dimension(600,600));
+	           // panel.setBackground(Color.RED);
+	           // panel.setMinimumSize(new Dimension(600,600));
 	            panel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
 	            panel.add(new JScrollPane(southPanel), BorderLayout.SOUTH);
 //	            frame.pack();

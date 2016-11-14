@@ -120,6 +120,6 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String args[]){
 
-		new Window(800, 600, "Epic - Prototype", new Game());
+		new Window(1600, 600, "Epic - Prototype", new Game());
 	}
 }
