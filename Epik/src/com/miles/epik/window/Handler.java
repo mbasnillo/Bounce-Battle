@@ -1,7 +1,12 @@
 package com.miles.epik.window;
 
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import com.miles.epik.framework.GameObject;
 import com.miles.epik.framework.ObjectId;
@@ -37,21 +42,39 @@ public class Handler {
 		this.object.remove(object);
 	}
 	
-	public void createLevel(){
-		for(int xx=0; xx < Game.WIDTH*2; xx+=32){
-			addObject(new Block(xx, Game.HEIGHT-32, ObjectId.Block));
+	public void createLevel() throws IOException{
+		List<String> lines = new ArrayList<String>();
+		
+		lines = addLine("map1.txt");
+		int xval=0, yval=0;
+		char temp;
+		
+		for(String s : lines){
+			for(int i=0; i<s.length(); i++){
+				temp = s.charAt(i);
+				switch(temp){
+					case 'b':
+						addObject(new Block(xval, yval, ObjectId.Block));
+						break;
+				}
+				xval += 32;
+			}
+			xval = 0;
+			yval += 32;
 		}
-		for(int xx=200; xx<300; xx+=32){
-			addObject(new Block(xx, Game.HEIGHT-96, ObjectId.Block));
+	}
+	
+	public static List<String> addLine(String path)throws IOException{
+		List<String> strings = new ArrayList<String>();
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+		    String line;
+
+		    while ((line = br.readLine()) != null) {
+		       	strings.add(line);
+		    }
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-		for(int xx=300; xx<500; xx+=32){
-			addObject(new Block(xx, Game.HEIGHT-160, ObjectId.Block));
-		}
-		for(int xx=500; xx<600; xx+=32){
-			addObject(new Block(xx, Game.HEIGHT-96, ObjectId.Block));
-		}
-		for(int yy=0; yy < Game.HEIGHT+32; yy+=32){
-			addObject(new Block(0, yy, ObjectId.Block));
-		}
+		return strings;
 	}
 }
