@@ -7,13 +7,15 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.miles.epik.framework.KeyInput;
 import com.miles.epik.framework.ObjectId;
 import com.miles.epik.objects.Player;
 import com.prince.epik.chat.Client;
-
+import com.miles.epik.yanni.GameClient;
+import com.miles.epik.yanni.GameServer;
 public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = 3867919631110141462L;
@@ -22,6 +24,12 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	
 	public static int WIDTH, HEIGHT;
+	
+	/**/
+	private GameClient socketClient;
+	private GameServer socketServer;
+	
+	/**/
 	
 	Handler handler;
 	Camera cam;
@@ -41,6 +49,7 @@ public class Game extends Canvas implements Runnable{
 		}catch(IOException e){}
 		
 		this.addKeyListener(new KeyInput(handler));
+		socketClient.sendData("ping".getBytes());
 	}
 	
 	public synchronized void start(){
@@ -49,6 +58,14 @@ public class Game extends Canvas implements Runnable{
 		running = true;
 		thread = new Thread(this);
 		thread.start();
+		
+		if(JOptionPane.showConfirmDialog(this, "Do you want to run the server?")==0){
+			socketServer = new GameServer(this);
+			socketServer.start();
+		}
+		
+		socketClient = new GameClient(this, "localhost");
+		socketClient.start();
 	}
 	
 	public void run(){
