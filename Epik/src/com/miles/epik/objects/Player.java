@@ -49,7 +49,7 @@ public class Player extends GameObject {
 		}
 		
 		collision(object);
-		getPosition();
+		//getPosition();
 	}
 	
 	private void collision(LinkedList<GameObject> object){

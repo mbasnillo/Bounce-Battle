@@ -2,17 +2,22 @@ package com.miles.epik.window;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import com.miles.epik.framework.KeyInput;
 import com.miles.epik.framework.ObjectId;
 import com.miles.epik.objects.Player;
-import com.prince.epik.chat.Client;
 
 public class Game extends Canvas implements Runnable{
 
@@ -119,7 +124,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public static void main(String args[]){
-
-		new Window(1600, 600, "Epic - Prototype", new Game());
+		new Menu(600, 400);
+		//new Window(1600, 600, "Epic - Prototype", new Game(), serverName.getText(), port.getText(), name.getText());
 	}
 }

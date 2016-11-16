@@ -15,9 +15,9 @@ public class Receiver implements Runnable {
         this.chatBox = chatBox;
     }
 
-    public void run() {
-        
+    public void run() { 
         /* Read data from the ClientSocket */
+    	System.out.println("Thread started!");
             while(true){
                 try{
                     DataInputStream in = new DataInputStream(server.getInputStream());

@@ -1,6 +1,7 @@
 package com.prince.epik.chat;
 
 import java.awt.BorderLayout;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,14 +21,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Client {
-	public Client(JPanel panel){
-		 JFrame frame = new JFrame("Setup");
-
-		    // prompt the user to enter their name
-		 String serverName = JOptionPane.showInputDialog(frame, "Enter Server IP address: ");
-		 int port = Integer.parseInt(JOptionPane.showInputDialog(frame, "Enter port number: "));
-		 String name = JOptionPane.showInputDialog(frame, "What's your name? ");
-		 
+	public Client(JPanel panel,String serverName, int port, String name){
+		
+		
+		JFrame frame = new JFrame("Setup");
 		    // get the user's input. note that if they press Cancel, 'name' will be null
 		 System.out.printf("The user's name is '%s'.\n", name);
 	      try{
@@ -41,43 +38,34 @@ public class Client {
 	         southPanel.setLayout(new BorderLayout());
 	         
 	         JTextField messageBox = new JTextField(30);
-	         messageBox.setMinimumSize(new Dimension(200,200));
-	         messageBox.setMaximumSize(new Dimension(200,200));
+	         //messageBox.setMinimumSize(new Dimension(200,200));
+	         //messageBox.setMaximumSize(new Dimension(200,200));
 	         messageBox.requestFocusInWindow();
 	         
 	         JTextArea chatBox = new JTextArea();
-	         chatBox.setPreferredSize(new Dimension(300,300));
-	         chatBox.setMinimumSize(new Dimension(500,500));
-	         chatBox.setMaximumSize(new Dimension(500,500));
+	         chatBox.setPreferredSize(new Dimension(100,100));
+	         chatBox.setMinimumSize(new Dimension(100,100));
 	         chatBox.setEditable(false);
 	         chatBox.setFont(new Font("Serif", Font.PLAIN, 15));
 	         chatBox.setLineWrap(true);
 
 	         JButton sendMessage = new JButton("Send Message");
 	         
-	         
-	         
-	         
 	         southPanel.add(messageBox,BorderLayout.CENTER);
 	         southPanel.add(sendMessage,BorderLayout.EAST);
-	         
+	         southPanel.setMinimumSize(new Dimension(100,20));
+	         southPanel.setMaximumSize(new Dimension(100,20));
 	           // panel = new JPanel();
 	            panel.setLayout(new BorderLayout());
 	           // panel.setBackground(Color.RED);
 	           // panel.setMinimumSize(new Dimension(600,600));
 	            panel.add(new JScrollPane(chatBox), BorderLayout.CENTER);
-	            panel.add(new JScrollPane(southPanel), BorderLayout.SOUTH);
+	            panel.add((southPanel), BorderLayout.SOUTH);
 	            panel.setSize(new Dimension(200,200));
-	            panel.revalidate();
-//	            frame.pack();
-//		 		
-//	            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	          //  frame.setResizable(false);
-//	            frame.setLocationRelativeTo(null);
-//	            frame.setVisible(true);
-//	            frame.setTitle("Chat Box: <"+ name + ">");
-	         System.out.println("Just connected to " + client.getRemoteSocketAddress());
+	            
 
+	         System.out.println("Just connected to " + client.getRemoteSocketAddress());
+	         //panel.revalidate();
 	         OutputStream outToServer = client.getOutputStream();
 	         DataOutputStream out = new DataOutputStream(outToServer);
 	         out.writeUTF(name+" has connected!\n");
@@ -98,10 +86,10 @@ public class Client {
 	         });
 	       
 	         //Thread sender = new Thread(new Sender(out,name)); //this thread is for a client to send message to server
-	         Thread receiver = new Thread(new Receiver(client,chatBox)); //this thread is for a client to recienve message from the server
+	         Thread receiver = new Thread(new Receiver(client,chatBox)); //this thread is for a client to receive message from the server
 
 	         //sender.start();
-	         receiver.run();
+	         receiver.start();
 
 	         client.close();
 
@@ -111,7 +99,7 @@ public class Client {
 	      	System.out.println("Cannot find Server");
 	      	System.exit(0);
 	      }catch(ArrayIndexOutOfBoundsException e){
-	         System.out.println("Usage: java Client <server ip> <port no.> '<your message name>'");
+	         //System.out.println("Usage: java Client <server ip> <port no.> '<your message name>'");
 	      }
 	   }
 }
