@@ -1,7 +1,6 @@
 package com.prince.epik.chat;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -78,6 +77,7 @@ public class Client {
 	                    	 out.writeUTF("<" + name + ">:  " + messageBox.getText()+ "\n");
 	                     }catch(IOException e){
 	                    	 System.out.println("Message not Sent\n");
+	                    	 System.out.println("<" + name + ">:  " + messageBox.getText()+ "\n");
 	                     }
 	                     messageBox.setText("");
 	                 }
@@ -86,12 +86,13 @@ public class Client {
 	         });
 	       
 	         //Thread sender = new Thread(new Sender(out,name)); //this thread is for a client to send message to server
+	         
 	         Thread receiver = new Thread(new Receiver(client,chatBox)); //this thread is for a client to receive message from the server
 
 	         //sender.start();
 	         receiver.start();
 
-	         client.close();
+	         //client.close();
 
 	      }catch(IOException e){
 	         //e.printStackTrace();

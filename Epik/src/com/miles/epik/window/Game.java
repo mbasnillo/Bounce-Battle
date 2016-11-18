@@ -2,18 +2,13 @@ package com.miles.epik.window;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 import com.miles.epik.framework.KeyInput;
 import com.miles.epik.framework.ObjectId;
@@ -23,13 +18,21 @@ public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = 3867919631110141462L;
 
+	public static final int PORT=4444;
+	DatagramSocket socket;
 	private boolean running = false;
 	private Thread thread;
+	String server;
+	String name;
+	String serverData;
+	boolean connected = false;
 	
 	public static int WIDTH, HEIGHT;
 	
 	Handler handler;
 	Camera cam;
+	
+	
 	
 	private void init(){
 		WIDTH = getWidth();
@@ -37,7 +40,7 @@ public class Game extends Canvas implements Runnable{
 		
 		handler = new Handler();
 		
-		cam = new Camera(0,0);
+		cam = new Camera(0,-70);
 		
 		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
 		
@@ -66,7 +69,7 @@ public class Game extends Canvas implements Runnable{
 		long timer = System.currentTimeMillis();
 		int updates = 0;
 		int frames = 0;
-		while(running){
+		while(running){			
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
@@ -84,6 +87,7 @@ public class Game extends Canvas implements Runnable{
 				frames = 0;
 				updates = 0;
 			}
+
 		}
 	}
 	
@@ -106,7 +110,6 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		
-		//
 		
 		// Draw here
 		g.setColor(Color.BLACK);
@@ -117,14 +120,20 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 		
 		g2d.translate(cam.getX(), -cam.getY());
-		//
 		
 		g.dispose();
 		bs.show();
 	}
 	
+	public void setServer(String server){
+		this.server = server;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
 	public static void main(String args[]){
 		new Menu(600, 400);
-		//new Window(1600, 600, "Epic - Prototype", new Game(), serverName.getText(), port.getText(), name.getText());
 	}
 }

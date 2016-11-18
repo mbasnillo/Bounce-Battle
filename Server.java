@@ -14,11 +14,13 @@ import java.util.*;
 
 public class Server extends Thread{
    private ServerSocket serverSocket;
-   private DatagramSocket socket;
+   private DatagramSocket socket = null;
+   GameServer gs = null;
+   final static int PORT = 4444;
    
    public Server(int port) throws IOException{
       serverSocket = new ServerSocket(port);
-      socket =   new DatagramSocket(port);
+      gs = new GameServer(5);
    }
 
    public void run(){
@@ -47,6 +49,9 @@ public class Server extends Thread{
          }
       } 
    }
+
+
+
    public static void main(String [] args){
       try{
          int port = Integer.parseInt(args[0]);

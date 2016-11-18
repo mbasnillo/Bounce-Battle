@@ -14,6 +14,8 @@ import javax.swing.JTextArea;
 
 
 public class Menu {
+	UDPClient udp;
+	
 	public Menu(int w, int h){
 		
 		JFrame frame = new JFrame("Setup");
@@ -66,9 +68,18 @@ public class Menu {
 				}
 				else{
 					frame.setVisible(false);
-					new Window(1000, 600, "Epic - Prototype", serverName.getText(), Integer.parseInt(port.getText()), name.getText());
+
+					Access access = new Access();
+					new Window(access, 1000, 600, "Epic - Prototype", serverName.getText(), Integer.parseInt(port.getText()), name.getText());
+					udp = new UDPClient(access, serverName.getText() , name.getText());
+					udp.start();
+					
+					
 				}
             }
 		});
+		
+		
 	}
+	
 }

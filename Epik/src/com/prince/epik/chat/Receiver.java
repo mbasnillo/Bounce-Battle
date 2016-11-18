@@ -15,16 +15,21 @@ public class Receiver implements Runnable {
         this.chatBox = chatBox;
     }
 
+    @Override
     public void run() { 
         /* Read data from the ClientSocket */
     	System.out.println("Thread started!");
             while(true){
                 try{
                     DataInputStream in = new DataInputStream(server.getInputStream());
-                    //System.out.println(in.readUTF());
                     chatBox.append(in.readUTF());
-                    //if(in.readUTF() == "quit()") break;
                 }catch(IOException e){
+                	//System.out.println("ERROR BESH!");
+                	try{
+                		this.server.close();
+                	}catch(IOException a){
+                		
+                	}
                 }
             }
     }

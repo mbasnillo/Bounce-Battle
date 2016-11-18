@@ -35,6 +35,7 @@ public class Echoer implements Runnable {
                     System.out.println(i+"\n");
 
                 }catch(IOException e){
+                    clients.remove(i);
                 }
         }
     }
