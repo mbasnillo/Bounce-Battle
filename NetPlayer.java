@@ -28,6 +28,7 @@ public class NetPlayer {
 	 */
 	private int x,y;
 
+	boolean r;
 	/**
 	 * Constructor
 	 * @param name
@@ -38,6 +39,7 @@ public class NetPlayer {
 		this.address = address;
 		this.port = port;
 		this.name = name;
+		this.r = false;
 	}
 
 	/**
@@ -106,7 +108,9 @@ public class NetPlayer {
 		retval+="PLAYER ";
 		retval+=name+" ";
 		retval+=x+" ";
-		retval+=y;
+		retval+=y+" ";
+		if(r)retval+="1";
+		else retval+="0";
 		return retval;
 	}	
 }

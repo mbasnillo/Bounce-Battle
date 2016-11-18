@@ -24,6 +24,7 @@ public class Window {
 	Object[][] data;
 	JPanel center;
 	String playerName;
+	JButton start;
 	
 	public Window(Access access, int w, int h, String title, String serverName, int port, String name){
 		this.playerName = name;
@@ -34,7 +35,7 @@ public class Window {
 		new Client(chat, serverName,  port,  name);
 		
 		String[] columnNames = {"Player", "Status"};
-		Object[] data = {name,"Not Ready"};
+		//Object[] data = {name,"Not Ready"};
 		
 		this.table = new JTable();
 		dtm.setColumnIdentifiers(columnNames);
@@ -43,7 +44,7 @@ public class Window {
 		this.access.setWindow(this);
 		JPanel southPanel = new JPanel(new GridLayout(1,2));
 		JButton ready = new JButton("Ready");
-		JButton start = new JButton("Start!");
+		this.start = new JButton("Start!");
 		southPanel.add(ready);
 		southPanel.add(start);
 		start.setEnabled(false);
@@ -52,12 +53,21 @@ public class Window {
 		
 		ready.addActionListener(new ActionListener(){
        	 public void actionPerformed(ActionEvent event) {
-                		data[1] = "Ready";
-                		start.setEnabled(true);
-                		center.revalidate();
-                		center.repaint();
-                		//this.table.fireTableDataChange();
-              
+               for(int j = 0; j < dtm.getRowCount();j++){
+            	   if(dtm.getValueAt(j, 0).equals(playerName)){
+            		   dtm.setValueAt("Ready", j, 1);
+            		   udp.send("READY "+playerName);
+            		   break;
+            	   }
+               }
+               boolean flag = true;
+               for(int j = 0; j < dtm.getRowCount();j++){
+            	   if(dtm.getValueAt(j, 1).equals("Not Ready")){
+            		   flag = false;
+            		   break;
+            	   }
+               }
+               start.setEnabled(flag);
             }
         });
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -118,5 +128,24 @@ public class Window {
 		}
 		center.revalidate();
 		center.repaint();
+	}
+	public void setUDPClient(UDPClient udp){
+		this.udp=udp;
+	}
+	public void setPlayerReady(String name){
+		for (int j = 0 ; j < dtm.getRowCount(); j++){
+			if(dtm.getValueAt(j, 0).equals(name)){
+     		   dtm.setValueAt("Ready", j, 1);
+     		   break;
+     	   }
+		}
+		 boolean flag = true;
+         for(int j = 0; j < dtm.getRowCount();j++){
+      	   if(dtm.getValueAt(j, 1).equals("Not Ready")){
+      		   flag = false;
+      		   break;
+      	   }
+         }
+         start.setEnabled(flag);
 	}
 }

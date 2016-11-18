@@ -27,6 +27,7 @@ public class UDPClient implements Runnable{
 		this.access = access;
 		this.server = server;
 		this.name = name;
+		this.ready = false;
 		try{
 			socket = new DatagramSocket();
 		}catch(IOException e){}
@@ -71,8 +72,11 @@ public class UDPClient implements Runnable{
 				System.out.println("Connected.");
 			}else if (serverData.startsWith("ROOM")){
 				this.access.getWindow().updateTable(serverData.split("-")[1]);
+			}else if (serverData.startsWith("READY")){
+				this.access.getWindow().setPlayerReady(serverData.split(" ")[1]);
 			}
 
 		}
 	}
+	
 }

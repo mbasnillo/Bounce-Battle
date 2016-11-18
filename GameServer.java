@@ -138,6 +138,9 @@ public class GameServer implements Runnable, Constants{
 								gameStage=GAME_START;
 							}
 						}
+						if (playerData.startsWith("READY")){
+							broadcast(playerData);
+						}
 					  break;	
 				  case GAME_START:
 					  System.out.println("Game State: START");
