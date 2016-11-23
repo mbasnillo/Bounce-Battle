@@ -32,6 +32,7 @@ public class UDPClient implements Runnable{
 			socket = new DatagramSocket();
 		}catch(IOException e){}
 	}
+	
 	public void start(){
 		while(t==null){
 			t = new Thread(this);
@@ -52,20 +53,24 @@ public class UDPClient implements Runnable{
 //				Thread.sleep(1);
 //			}catch(Exception ioe){}
 						
-			//Get the data from players
+			//Get the data from players.
 			byte[] buf = new byte[256];
 			DatagramPacket packet = new DatagramPacket(buf, buf.length);
+			
+			//Receive packet from socket.
 			try{
      			socket.receive(packet);
 			}catch(Exception ioe){/*lazy exception handling :)*/}
 			
+			//Trim data received.
 			serverData=new String(buf);
-			serverData=serverData.trim();			
-
+			serverData=serverData.trim();	
+			
+			//Print server data.
 			if (!serverData.equals("")){
 				System.out.println("Server Data:" +serverData);
 			}
-
+			
 			//Study the following kids. 
 			if (!connected && serverData.startsWith("CONNECTED")){
 				connected=true;

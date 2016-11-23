@@ -109,23 +109,28 @@ public class Window {
 		
 	}
 	public void updateTable(String message){
-		String player[] = message.split(":");
-		int i = 0;
+		int i = dtm.getRowCount();
 		
-		for (int j = 0 ; j < dtm.getRowCount(); j++){
-			dtm.removeRow(j);
+		//Clear table, first.
+		if (dtm.getRowCount() > 0) {
+		    for (i=i-1; i>-1; i--) {
+		        dtm.removeRow(i);
+		    }
 		}
-		//Object[] newData;
+		
+		//Get player information.
+		String player[] = message.split(":");
+		
+		//Populate table with information.
 		for(String p : player){
-			
-			i++;
 			String elements[] = p.split(" ");
 			String name = elements[0];
-			//if(name.equals(playerName)){ dtm.removeRow(arg0);;}
+			
 			Object[] newData = {name,"Not Ready"};
 			dtm.addRow(newData);
-			
 		}
+		
+		//Revalidate table.
 		center.revalidate();
 		center.repaint();
 	}
