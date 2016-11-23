@@ -81,13 +81,14 @@ public class Window {
 		
 		start.addActionListener(new ActionListener(){
 	       	 public void actionPerformed(ActionEvent event) {
+	       		scrollPane.setVisible(false);
+	       		center.setVisible(false);
 	     		Game game = new Game();
 	     		game.setServer(serverName);
 	     		game.setName(name);
 	     		game.setPreferredSize(new Dimension(w, h));
 	     		game.setMinimumSize(new Dimension(w, h));
 	     		game.setMaximumSize(new Dimension(w, h));
-	     		scrollPane.setVisible(false);
 	    		frame.add(game, BorderLayout.CENTER);
 	    		System.out.println("GAME START");
 	    		frame.revalidate();
