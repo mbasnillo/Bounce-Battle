@@ -30,7 +30,7 @@ public class Game extends Canvas implements Runnable{
 	public static int WIDTH, HEIGHT;
 	
 	Handler handler;
-	Camera cam;
+	//Camera cam;
 	
 	
 	
@@ -40,10 +40,10 @@ public class Game extends Canvas implements Runnable{
 		
 		handler = new Handler();
 		
-		cam = new Camera(0,-70);
+		//cam = new Camera(0,-70);
 		
 		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
-		
+		handler.addObject(new Player(200, 200, handler, ObjectId.Test));
 		try{
 			handler.createLevel();
 		}catch(IOException e){}
@@ -93,11 +93,11 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick(){
 		handler.tick();
-		for(int i=0; i<handler.object.size(); i++){
+		/*for(int i=0; i<handler.object.size(); i++){
 			if(handler.object.get(i).getId() == ObjectId.Player){
-				cam.tick(handler.object.get(i));
+				//cam.tick(handler.object.get(i));
 			}
-		}
+		}*/
 	}
 	
 	private void render(){
@@ -115,11 +115,11 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		
-		g2d.translate(cam.getX(), cam.getY());
+		//g2d.translate(cam.getX(), cam.getY());
 		
 		handler.render(g);
 		
-		g2d.translate(cam.getX(), -cam.getY());
+		//g2d.translate(cam.getX(), -cam.getY());
 		
 		g.dispose();
 		bs.show();
@@ -134,6 +134,6 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public static void main(String args[]){
-		new Menu(600, 400);
+		new Menu(1600, 900);
 	}
 }

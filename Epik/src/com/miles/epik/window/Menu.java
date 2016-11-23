@@ -70,7 +70,7 @@ public class Menu {
 					frame.setVisible(false);
 
 					Access access = new Access();
-					Window win = new Window(access, 1000, 600, "Epic - Prototype", serverName.getText(), Integer.parseInt(port.getText()), name.getText());
+					Window win = new Window(access, 1600, 900, "Epic - Prototype", serverName.getText(), Integer.parseInt(port.getText()), name.getText());
 					udp = new UDPClient(access, serverName.getText() , name.getText());
 					udp.start();
 					win.setUDPClient(udp);

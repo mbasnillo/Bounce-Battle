@@ -82,6 +82,37 @@ public class Player extends GameObject {
 					x = tempObject.getX() + width;
 				}
 			}
+			
+			if(tempObject.getId() == ObjectId.Test){
+				if(getBoundsTop().intersects(tempObject.getBounds())){
+					//y = tempObject.getY() + (height/2);
+					if(velX < tempObject.getVelX()){
+						tempObject.setVelX(velX);
+						velX += tempObject.getVelX();
+					}
+				}
+				if(getBounds().intersects(tempObject.getBounds())){
+					//y = tempObject.getY() - height;
+					if(velX > tempObject.getVelX()){
+						tempObject.setVelX(velX);
+						velX -= tempObject.getVelX();
+					}
+				}
+				if(getBoundsLeft().intersects(tempObject.getBounds())){
+					//x = tempObject.getX() + width;
+					if(velX < tempObject.getVelX()){
+						tempObject.setVelX(velX);
+						velX += tempObject.getVelX();
+					}
+				}
+				if(getBoundsRight().intersects(tempObject.getBounds())){
+					//x = tempObject.getX() - width;
+					if(velX > tempObject.getVelX()){
+						tempObject.setVelX(velX);
+						velX -= tempObject.getVelX();
+					}
+				}
+			}
 		}
 	}
 
@@ -98,6 +129,10 @@ public class Player extends GameObject {
 		g2d.draw(getBoundsTop());
 		*/
 		
+	}
+	
+	public Rectangle getFullBounds(){
+		return new Rectangle((int)x, (int)y, 48, 48);
 	}
 
 	public Rectangle getBounds() {

@@ -79,6 +79,17 @@ public class Window {
 		frame.setLayout(new BorderLayout());
 //		frame.add(game, BorderLayout.CENTER);
 		
+		
+
+		frame.add(center, BorderLayout.CENTER);
+		frame.add(chat, BorderLayout.EAST);
+		frame.add(southPanel, BorderLayout.SOUTH);
+		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(true);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
 		start.addActionListener(new ActionListener(){
 	       	 public void actionPerformed(ActionEvent event) {
 	     		Game game = new Game();
@@ -91,19 +102,10 @@ public class Window {
 	    		frame.add(game, BorderLayout.CENTER);
 	    		System.out.println("GAME START");
 	    		frame.revalidate();
+	    		frame.repaint();
 	     		game.start();
 	         }
 	    });
-
-		frame.add(center, BorderLayout.CENTER);
-		frame.add(chat, BorderLayout.EAST);
-		frame.add(southPanel, BorderLayout.SOUTH);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-		
 		//game.start();
 		//frame.pack();
 		

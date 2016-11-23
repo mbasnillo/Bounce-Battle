@@ -34,8 +34,24 @@ public class KeyInput extends KeyAdapter {
 						p.incJumpPower();
 				}
 
-				if(key == KeyEvent.VK_RIGHT)tempObject.setVelX(5);
-				if(key == KeyEvent.VK_LEFT)tempObject.setVelX(-5);
+				if(key == KeyEvent.VK_RIGHT){
+					if(tempObject.getVelX() == 0){
+						tempObject.setVelX(5);
+					}else{
+						while(tempObject.getVelX() < 10){
+							tempObject.setVelX((tempObject.getVelX())+1);
+						}
+					}
+				}
+				if(key == KeyEvent.VK_LEFT){
+					if(tempObject.getVelX() == 0){
+						tempObject.setVelX(-5);
+					}else{
+						while(tempObject.getVelY() > -10){
+							tempObject.setVelX((tempObject.getVelX())+1);
+						}
+					}
+				}
  			}
 		}
 		

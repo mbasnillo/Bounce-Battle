@@ -2,7 +2,8 @@ package com.miles.epik.framework;
 
 public enum ObjectId {
 	Player(),
-	Block();
+	Block(),
+	Test();
 	
 	/*
 	 * 	Coins();
