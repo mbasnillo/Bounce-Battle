@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import com.miles.epik.objects.Block;
 public class Handler {
 
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
+	HashMap<String, GameObject>  players= new HashMap<String, GameObject>();
 	
 	private GameObject tempObject;
 	
@@ -36,6 +38,16 @@ public class Handler {
 	
 	public void addObject(GameObject object){
 		this.object.add(object);	
+	}
+	
+	public void addPlayer(String name,GameObject object){
+		if(!players.containsKey(name)){			
+			players.put(name, object);
+		}
+	}
+	
+	public HashMap<String, GameObject> getPlayers(){
+		return this.players;
 	}
 	
 	public void removeObject(GameObject object){

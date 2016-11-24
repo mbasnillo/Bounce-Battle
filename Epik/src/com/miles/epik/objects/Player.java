@@ -19,10 +19,12 @@ public class Player extends GameObject {
 	private int jumpcount=2;
 	private Handler handler;
 	private float jumpPower = 0;
+	private String name;
 	
-	public Player(float x, float y, Handler handler, ObjectId id) {
+	public Player(float x, float y, Handler handler, ObjectId id, String name) {
 		super(x, y, id);
 		this.handler = handler;
+		this.name = name;
 	}
 	
 	public void getPosition(){
@@ -174,5 +176,16 @@ public class Player extends GameObject {
 		this.jumpcount = jumpcount;
 	}
 	
+	public float getX(){
+		return this.x;
+	}
+	
+	public float getY(){
+		return this.y;
+	}
+	
+	public String getName(){
+		return this.name;
+	}
 	
 }

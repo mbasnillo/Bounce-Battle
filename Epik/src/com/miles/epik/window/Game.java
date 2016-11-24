@@ -6,9 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
-import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 
 import com.miles.epik.framework.KeyInput;
 import com.miles.epik.framework.ObjectId;
@@ -26,6 +24,9 @@ public class Game extends Canvas implements Runnable{
 	String name;
 	String serverData;
 	boolean connected = false;
+	UDPClient udp;
+	private Player user;
+	Access access;
 	
 	public static int WIDTH, HEIGHT;
 	
@@ -41,9 +42,19 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		
 		//cam = new Camera(0,-70);
-		
-		handler.addObject(new Player(100, 100, handler, ObjectId.Player));
-		handler.addObject(new Player(200, 200, handler, ObjectId.Test));
+//		user = new Player(100, 100, handler, ObjectId.Player,name);
+//		handler.addObject(user);
+//		handler.addPlayer(name, user);
+		int i = 1;
+		for(String newName : access.getPlayers().keySet()){
+			Player newPlayer;
+			if(newName.equals(name)) newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Player, newName);
+			else newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Test, newName);
+			this.handler.addObject(newPlayer);
+			this.handler.addPlayer(newName,newPlayer);
+			i++;
+		}
+		user = (Player) handler.getPlayers().get(name);
 		try{
 			handler.createLevel();
 		}catch(IOException e){}
@@ -87,7 +98,7 @@ public class Game extends Canvas implements Runnable{
 				frames = 0;
 				updates = 0;
 			}
-
+			udp.send("POSITION-"+ user.getName()+" "+user.getX() + ","+user.getY());
 		}
 	}
 	
@@ -133,7 +144,23 @@ public class Game extends Canvas implements Runnable{
 		this.name = name;
 	}
 	
-	public static void main(String args[]){
-		new Menu(1600, 900);
+	public void setUDP(UDPClient udp){
+		this.udp = udp;
+	}
+	
+	public void setAccess(Access access){
+		this.access = access;
+	}
+	public void updatePlayer(String data){
+		String nameToBeUpdated;
+		String[] d = data.split(" ");
+		nameToBeUpdated = d[0];
+		if(!nameToBeUpdated.equals(name)){
+			float newX = Float.parseFloat(d[1].split(",")[0]);
+			float newY = Float.parseFloat(d[1].split(",")[1]);
+			this.handler.getPlayers().get(nameToBeUpdated).setX(newX);
+			this.handler.getPlayers().get(nameToBeUpdated).setY(newY);
+		}
+		
 	}
 }

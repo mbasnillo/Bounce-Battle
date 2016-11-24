@@ -126,7 +126,6 @@ public class GameServer implements Runnable, Constants{
 				  case WAITING_FOR_PLAYERS:
 						//System.out.println("Game State: Waiting for players...");
 						if (playerData.startsWith("CONNECT")){
-							System.out.println("trying...");
 							String tokens[] = playerData.split(" ");
 							NetPlayer player=new NetPlayer(tokens[1],packet.getAddress(),packet.getPort());
 							System.out.println("Player connected: "+tokens[1]);
@@ -134,12 +133,13 @@ public class GameServer implements Runnable, Constants{
 							broadcast("CONNECTED "+tokens[1]);
 							broadcast("ROOM-"+game.toString());
 							playerCount++;
-							if (playerCount==numPlayers){
-								gameStage=GAME_START;
-							}
 						}
 						if (playerData.startsWith("READY")){
 							broadcast(playerData);
+						}
+						if (playerData.startsWith("GAME START")){
+							broadcast("GAME START");
+							gameStage=GAME_START;
 						}
 					  break;	
 				  case GAME_START:
@@ -151,6 +151,7 @@ public class GameServer implements Runnable, Constants{
 					  //System.out.println("Game State: IN_PROGRESS");
 					  
 					  //Player data was received!
+				  /*
 					  if (playerData.startsWith("PLAYER")){
 						  //Tokenize:
 						  //The format: PLAYER <player name> <x> <y>
@@ -166,6 +167,9 @@ public class GameServer implements Runnable, Constants{
 						  game.update(pname, player);
 						  //Send to all the updated game state
 						  broadcast(game.toString());
+					  }*/
+					  if(playerData.startsWith("POSITION")){
+					  	broadcast(playerData);
 					  }
 					  break;
 			}				  

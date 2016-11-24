@@ -25,6 +25,7 @@ public class Window {
 	JPanel center;
 	String playerName;
 	JButton start;
+	boolean gameStarted = false;
 	
 	public Window(Access access, int w, int h, String title, String serverName, int port, String name){
 		this.playerName = name;
@@ -92,18 +93,24 @@ public class Window {
 		
 		start.addActionListener(new ActionListener(){
 	       	 public void actionPerformed(ActionEvent event) {
-	     		Game game = new Game();
-	     		game.setServer(serverName);
-	     		game.setName(name);
-	     		game.setPreferredSize(new Dimension(w, h));
-	     		game.setMinimumSize(new Dimension(w, h));
-	     		game.setMaximumSize(new Dimension(w, h));
-	     		scrollPane.setVisible(false);
-	    		frame.add(game, BorderLayout.CENTER);
-	    		System.out.println("GAME START");
-	    		frame.revalidate();
-	    		frame.repaint();
-	     		game.start();
+	       		if(gameStarted == false){
+	       			gameStarted = true;
+	       			Game game = new Game();
+	       			game.setAccess(access);
+	       			udp.setGame(game);
+	       			game.setUDP(udp);
+		     		game.setServer(serverName);
+		     		game.setName(name);
+		     		game.setPreferredSize(new Dimension(w, h));
+		     		game.setMinimumSize(new Dimension(w, h));
+		     		game.setMaximumSize(new Dimension(w, h));
+		     		scrollPane.setVisible(false);
+		    		frame.add(game, BorderLayout.CENTER);
+		    		udp.send("GAME START");
+		    		frame.revalidate();
+		    		frame.repaint();
+		     		game.start();
+	       		}
 	         }
 	    });
 		//game.start();

@@ -81,5 +81,8 @@ public class Menu {
 		
 		
 	}
+	public static void main(String args[]){
+		new Menu(1600, 900);
+	}
 	
 }

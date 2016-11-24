@@ -14,6 +14,7 @@ public class UDPClient implements Runnable{
 	Thread t;
 	Access access;
 	boolean ready;
+	Game game;
 	
 	public void send(String msg){
 		try{
@@ -72,11 +73,19 @@ public class UDPClient implements Runnable{
 				System.out.println("Connected.");
 			}else if (serverData.startsWith("ROOM")){
 				this.access.getWindow().updateTable(serverData.split("-")[1]);
+				this.access.updatePlayer(serverData.split("-")[1]);
 			}else if (serverData.startsWith("READY")){
 				this.access.getWindow().setPlayerReady(serverData.split(" ")[1]);
+			}else if (serverData.startsWith("START")){
+				this.access.getWindow().start.doClick();
+			}else if (serverData.startsWith("POSITION")){
+				this.game.updatePlayer(serverData.split("-")[1]);
 			}
 
 		}
+	}
+	public void setGame(Game game){
+		this.game = game;
 	}
 	
 }
