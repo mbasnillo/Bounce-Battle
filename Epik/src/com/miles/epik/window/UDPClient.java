@@ -78,7 +78,7 @@ public class UDPClient implements Runnable{
 				this.access.getWindow().setPlayerReady(serverData.split(" ")[1]);
 			}else if (serverData.startsWith("START")){
 				this.access.getWindow().start.doClick();
-			}else if (serverData.startsWith("POSITION")){
+			}if (serverData.startsWith("POSITION")){
 				this.game.updatePlayer(serverData.split("-")[1]);
 			}
 

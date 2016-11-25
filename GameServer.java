@@ -138,7 +138,7 @@ public class GameServer implements Runnable, Constants{
 							broadcast(playerData);
 						}
 						if (playerData.startsWith("GAME START")){
-							broadcast("GAME START");
+							broadcast("START");
 							gameStage=GAME_START;
 						}
 					  break;	

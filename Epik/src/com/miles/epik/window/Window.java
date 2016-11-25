@@ -131,7 +131,6 @@ public class Window {
 				dtm.removeRow(i);
 		 	}
 		}
-		//Object[] newData;
 		
 		String player[] = message.split(":");
 		

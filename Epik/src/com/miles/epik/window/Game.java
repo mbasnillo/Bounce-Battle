@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable{
 			else{
 				newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Test, newName);
 			}
-			newPlayer.setColor(colors[i%colors.length]);
+			newPlayer.setColor(colors[(i-1)%colors.length]);
 			this.handler.addObject(newPlayer);
 			this.handler.addPlayer(newName,newPlayer);
 			i++;
@@ -65,7 +65,6 @@ public class Game extends Canvas implements Runnable{
 		try{
 			handler.createLevel();
 		}catch(IOException e){}
-		
 		this.addKeyListener(new KeyInput(handler));
 	}
 	
@@ -164,13 +163,15 @@ public class Game extends Canvas implements Runnable{
 	public void updatePlayer(String data){
 		String nameToBeUpdated;
 		String[] d = data.split(" ");
-		nameToBeUpdated = d[0];
-		if(!nameToBeUpdated.equals(name)){
+		nameToBeUpdated = d[0].trim();
+		if(handler.getPlayers().containsKey(nameToBeUpdated) && !nameToBeUpdated.equals(name)){
 			float newX = Float.parseFloat(d[1].split(",")[0]);
 			float newY = Float.parseFloat(d[1].split(",")[1]);
 			this.handler.getPlayers().get(nameToBeUpdated).setX(newX);
 			this.handler.getPlayers().get(nameToBeUpdated).setY(newY);
 		}
-		
+		else if(!nameToBeUpdated.equals(name)){
+			System.out.println("ERRRRRROOOORRR!");
+		}
 	}
 }
