@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.net.DatagramSocket;
 
+import com.miles.epik.framework.GameObject;
 import com.miles.epik.framework.KeyInput;
 import com.miles.epik.framework.ObjectId;
 import com.miles.epik.objects.Player;
@@ -105,6 +106,7 @@ public class Game extends Canvas implements Runnable{
 				updates = 0;
 			}
 			udp.send("POSITION-"+ user.getName()+" "+user.getX() + ","+user.getY());
+			udp.send("ALIVE-"+user.getAlive());
 			if(Math.abs(user.getX()) > 100000 || Math.abs(user.getY()) > 100000 ){
 				running = false;
 			}
