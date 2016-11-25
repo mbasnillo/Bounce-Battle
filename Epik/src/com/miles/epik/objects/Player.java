@@ -85,34 +85,38 @@ public class Player extends GameObject {
 				}
 			}
 			
-			if(tempObject.getId() == ObjectId.Test){
-				if(getBoundsTop().intersects(tempObject.getBounds())){
-					//y = tempObject.getY() + (height/2);
-					if(velX < tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX += tempObject.getVelX();
+			//
+			if(tempObject.getId() == ObjectId.Player && tempObject != this){
+				if(getBoundsLeft().intersects(tempObject.getFullBounds())){
+					x = tempObject.getX() + width;
+					if(-(velX) > (tempObject.getVelX())){
+						tempObject.setVelX(velX*2);
+						velX = -velX;
+					}else if(-(velX) == tempObject.getVelX()){
+						velX = 0;
+						tempObject.setVelX(0);
+					}else{
+						velX = -2 * (tempObject.getVelX());
 					}
 				}
-				if(getBounds().intersects(tempObject.getBounds())){
-					//y = tempObject.getY() - height;
-					if(velX > tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX -= tempObject.getVelX();
+				if(getBoundsRight().intersects(tempObject.getFullBounds())){
+					x = tempObject.getX() - width;
+					if((velX) > -(tempObject.getVelX())){
+						tempObject.setVelX(velX*2);
+						velX = -velX;
+					}else if(-(velX) == tempObject.getVelX()){
+						velX = 0;
+						tempObject.setVelX(0);
+					}else{
+						velX = 2 * (tempObject.getVelX());
 					}
 				}
-				if(getBoundsLeft().intersects(tempObject.getBounds())){
-					//x = tempObject.getX() + width;
-					if(velX < tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX += tempObject.getVelX();
-					}
+				if(getBoundsTop().intersects(tempObject.getFullBounds())){
+					y = tempObject.getY() + height;
 				}
-				if(getBoundsRight().intersects(tempObject.getBounds())){
-					//x = tempObject.getX() - width;
-					if(velX > tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX -= tempObject.getVelX();
-					}
+				if(getBounds().intersects(tempObject.getFullBounds())){
+					y = tempObject.getY() - height;
+					if(this.jumpPower > 0)this.jump(-1);
 				}
 			}
 		}

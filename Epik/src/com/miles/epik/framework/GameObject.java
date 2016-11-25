@@ -30,6 +30,7 @@ public abstract class GameObject {
 	public abstract void tick(LinkedList<GameObject> object);
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
+	public abstract Rectangle getFullBounds();
 	
 	public float getX(){
 		return x;

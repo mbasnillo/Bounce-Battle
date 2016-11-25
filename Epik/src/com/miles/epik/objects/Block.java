@@ -27,6 +27,10 @@ public class Block extends GameObject{
 		return new Rectangle((int)x, (int)y, 32, 32);
 	}
 
+	public Rectangle getFullBounds() {
+		return new Rectangle((int)x, (int)y, 32, 32);
+	}
+
 
 	
 }
