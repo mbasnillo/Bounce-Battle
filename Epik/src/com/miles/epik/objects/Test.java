@@ -87,6 +87,9 @@ public class Test extends GameObject{
 		return new Rectangle((int)x, (int)y, 48, 48);
 	}
 
+	public Rectangle getFullBounds(){
+		return new Rectangle((int)x, (int)y, 48, 48);
+	}
 
 	
 }
