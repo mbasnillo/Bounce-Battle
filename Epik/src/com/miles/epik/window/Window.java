@@ -85,6 +85,9 @@ public class Window {
 		frame.add(center, BorderLayout.CENTER);
 		frame.add(chat, BorderLayout.EAST);
 		frame.add(southPanel, BorderLayout.SOUTH);
+		frame.setPreferredSize(new Dimension(w, h));
+ 		frame.setMinimumSize(new Dimension(w, h));
+ 		frame.setMaximumSize(new Dimension(w, h));
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
@@ -101,10 +104,11 @@ public class Window {
 	       			game.setUDP(udp);
 		     		game.setServer(serverName);
 		     		game.setName(name);
-		     		game.setPreferredSize(new Dimension(w, h));
-		     		game.setMinimumSize(new Dimension(w, h));
-		     		game.setMaximumSize(new Dimension(w, h));
-		     		scrollPane.setVisible(false);
+		     		//game.setPreferredSize(new Dimension(w, h));
+		     		//game.setMinimumSize(new Dimension(w, h));
+		     		//game.setMaximumSize(new Dimension(w, h));
+		     		//scrollPane.setVisible(false);
+		     		frame.remove(center);
 		    		frame.add(game, BorderLayout.CENTER);
 		    		udp.send("GAME START");
 		    		frame.revalidate();
@@ -118,13 +122,19 @@ public class Window {
 		
 	}
 	public void updateTable(String message){
-		String player[] = message.split(":");
-		int i = 0;
+		//String player[] = message.split(":");
+		int i = dtm.getRowCount();
 		
-		for (int j = 0 ; j < dtm.getRowCount(); j++){
-			dtm.removeRow(j);
+		//Clear table, first.
+		if (dtm.getRowCount() > 0) {
+			for (i=i-1; i>-1; i--) {
+				dtm.removeRow(i);
+		 	}
 		}
 		//Object[] newData;
+		
+		String player[] = message.split(":");
+		
 		for(String p : player){
 			
 			i++;

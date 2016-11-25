@@ -6,10 +6,8 @@ b
 b
 b                        
 b
-b          
-b                         
+b                                   
 b        
-b                         
-b          
+b                                
 b             b    
-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb

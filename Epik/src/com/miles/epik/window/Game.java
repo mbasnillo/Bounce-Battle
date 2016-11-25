@@ -54,6 +54,7 @@ public class Game extends Canvas implements Runnable{
 			this.handler.addPlayer(newName,newPlayer);
 			i++;
 		}
+		//handler.addObject(new Player(200, 200, handler, ObjectId.Player, "Rip"));
 		user = (Player) handler.getPlayers().get(name);
 		try{
 			handler.createLevel();
