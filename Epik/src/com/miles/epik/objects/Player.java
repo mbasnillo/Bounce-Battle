@@ -20,11 +20,16 @@ public class Player extends GameObject {
 	private Handler handler;
 	private float jumpPower = 0;
 	private String name;
+	private Color color;
 	
 	public Player(float x, float y, Handler handler, ObjectId id, String name) {
 		super(x, y, id);
 		this.handler = handler;
 		this.name = name;
+	}
+	
+	public void setColor(Color color){
+		this.color=color;
 	}
 	
 	public void getPosition(){
@@ -86,40 +91,40 @@ public class Player extends GameObject {
 			}
 			
 			if(tempObject.getId() == ObjectId.Test){
-				if(getBoundsTop().intersects(tempObject.getBounds())){
-					//y = tempObject.getY() + (height/2);
-					if(velX < tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX += tempObject.getVelX();
-					}
-				}
-				if(getBounds().intersects(tempObject.getBounds())){
-					//y = tempObject.getY() - height;
-					if(velX > tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX -= tempObject.getVelX();
-					}
-				}
-				if(getBoundsLeft().intersects(tempObject.getBounds())){
-					//x = tempObject.getX() + width;
-					if(velX < tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX += tempObject.getVelX();
-					}
-				}
-				if(getBoundsRight().intersects(tempObject.getBounds())){
-					//x = tempObject.getX() - width;
-					if(velX > tempObject.getVelX()){
-						tempObject.setVelX(velX);
-						velX -= tempObject.getVelX();
-					}
-				}
+//				if(getBoundsTop().intersects(tempObject.getBounds())){
+//					//y = tempObject.getY() + (height/2);
+//					if(velX < tempObject.getVelX()){
+//						tempObject.setVelX(velX);
+//						velX += tempObject.getVelX();
+//					}
+//				}
+//				if(getBounds().intersects(tempObject.getBounds())){
+//					//y = tempObject.getY() - height;
+//					if(velX > tempObject.getVelX()){
+//						tempObject.setVelX(velX);
+//						velX -= tempObject.getVelX();
+//					}
+//				}
+//				if(getBoundsLeft().intersects(tempObject.getBounds())){
+//					//x = tempObject.getX() + width;
+//					if(velX < tempObject.getVelX()){
+//						tempObject.setVelX(velX);
+//						velX += tempObject.getVelX();
+//					}
+//				}
+//				if(getBoundsRight().intersects(tempObject.getBounds())){
+//					//x = tempObject.getX() - width;
+//					if(velX > tempObject.getVelX()){
+//						tempObject.setVelX(velX);
+//						velX -= tempObject.getVelX();
+//					}
+//				}
 			}
 		}
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(this.color);
 		g.fillOval((int)x, (int)y, (int)width, (int)height);
 		
 		/*

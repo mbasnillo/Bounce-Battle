@@ -27,6 +27,7 @@ public class Game extends Canvas implements Runnable{
 	UDPClient udp;
 	private Player user;
 	Access access;
+	private Color[] colors = {Color.BLUE, Color.RED, Color.GREEN};
 	
 	public static int WIDTH, HEIGHT;
 	
@@ -48,8 +49,13 @@ public class Game extends Canvas implements Runnable{
 		int i = 1;
 		for(String newName : access.getPlayers().keySet()){
 			Player newPlayer;
-			if(newName.equals(name)) newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Player, newName);
-			else newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Test, newName);
+			if(newName.equals(name)){
+				newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Player, newName);
+			}
+			else{
+				newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Test, newName);
+			}
+			newPlayer.setColor(colors[i%colors.length]);
 			this.handler.addObject(newPlayer);
 			this.handler.addPlayer(newName,newPlayer);
 			i++;
@@ -100,6 +106,9 @@ public class Game extends Canvas implements Runnable{
 				updates = 0;
 			}
 			udp.send("POSITION-"+ user.getName()+" "+user.getX() + ","+user.getY());
+			if(Math.abs(user.getX()) > 100000 || Math.abs(user.getY()) > 100000 ){
+				running = false;
+			}
 		}
 	}
 	

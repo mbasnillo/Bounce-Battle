@@ -68,13 +68,11 @@ public class Menu {
 				}
 				else{
 					frame.setVisible(false);
-
 					Access access = new Access();
 					Window win = new Window(access, w, h, "Epic - Prototype", serverName.getText(), Integer.parseInt(port.getText()), name.getText());
 					udp = new UDPClient(access, serverName.getText() , name.getText());
 					udp.start();
 					win.setUDPClient(udp);
-					
 				}
             }
 		});
@@ -82,7 +80,7 @@ public class Menu {
 		
 	}
 	public static void main(String args[]){
-		new Menu(1600, 900);
+		new Menu(1000, 500);
 	}
 	
 }

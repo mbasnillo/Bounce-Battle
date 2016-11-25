@@ -1,5 +1,6 @@
 package com.miles.epik.window;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,6 +18,7 @@ public class Handler {
 
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
 	HashMap<String, GameObject>  players= new HashMap<String, GameObject>();
+	Color[] colors = {Color.BLUE, Color.RED};
 	
 	private GameObject tempObject;
 	
