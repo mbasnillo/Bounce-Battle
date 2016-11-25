@@ -22,6 +22,8 @@ public class Player extends GameObject {
 	private String name;
 	private Color color;
 	
+	private boolean is_alive = true;
+	
 	public Player(float x, float y, Handler handler, ObjectId id, String name) {
 		super(x, y, id);
 		this.handler = handler;
@@ -56,6 +58,9 @@ public class Player extends GameObject {
 		}
 		
 		collision(object);
+		if(y >= 2000){
+			is_alive = false;
+		}
 		//getPosition();
 	}
 	
@@ -196,6 +201,10 @@ public class Player extends GameObject {
 	
 	public String getName(){
 		return this.name;
+	}
+	
+	public boolean getAlive(){
+		return this.is_alive;
 	}
 	
 }
