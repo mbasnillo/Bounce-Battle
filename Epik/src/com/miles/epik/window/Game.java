@@ -80,7 +80,6 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run(){
-		Toolkit.getDefaultToolkit().sync();
 		init();
 		this.requestFocus();
 		long lastTime = System.nanoTime();
@@ -126,6 +125,8 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void render(){
+
+		Toolkit.getDefaultToolkit().sync();
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null){
 			this.createBufferStrategy(3);
