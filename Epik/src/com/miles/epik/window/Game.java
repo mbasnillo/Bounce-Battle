@@ -109,7 +109,6 @@ public class Game extends Canvas implements Runnable{
 				updates = 0;
 			}
 			udp.send("POSITION-"+ user.getName()+" "+user.getX() + ","+user.getY());
-			udp.send("ALIVE-"+user.getAlive());
 			if(Math.abs(user.getX()) > 100000 || Math.abs(user.getY()) > 100000 ){
 				running = false;
 			}
@@ -118,6 +117,20 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick(){
 		handler.tick();
+		int count = 0;
+		for(String checkName : access.getPlayers().keySet()){
+			if(access.getPlayers().get(checkName)){
+				count++;
+			}
+		}
+		
+		if(count == 1){
+			for(String checkName : access.getPlayers().keySet()){
+				if(access.getPlayers().get(checkName)) System.out.println(checkName + " HAS WON!");
+			}
+			running = false;
+			
+		}
 		/*for(int i=0; i<handler.object.size(); i++){
 			if(handler.object.get(i).getId() == ObjectId.Player){
 				//cam.tick(handler.object.get(i));
