@@ -135,6 +135,13 @@ public class Window {
 		     		//scrollPane.setVisible(false);
 		     		frame.remove(center);
 		     		frame.remove(manual);
+		     		frame.remove(southPanel);
+		     		//
+		     		JPanel sBoard = new JPanel();
+		     		sBoard.setBackground(Color.RED);
+		     		sBoard.setPreferredSize(new Dimension(0,50));
+		     		frame.add(sBoard, BorderLayout.SOUTH);
+		     		//
 		    		frame.add(game, BorderLayout.CENTER);
 		    		udp.send("GAME START");
 		    		frame.revalidate();
