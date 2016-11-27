@@ -1,17 +1,22 @@
 package com.miles.epik.window;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.prince.epik.chat.Client;
@@ -31,7 +36,7 @@ public class Window {
 		this.playerName = name;
 		this.access = access;
 		JPanel chat = new JPanel();
-		chat.setPreferredSize(new Dimension(300,200));
+		chat.setPreferredSize(new Dimension(275,200));
 
 		new Client(chat, serverName,  port,  name);
 		
@@ -74,15 +79,35 @@ public class Window {
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
 		center.add(scrollPane);
-
+//
+	
+		JPanel manual = new JPanel();
+		manual.add(Box.createHorizontalGlue());
+	    JLabel manText = new JLabel("MECHANICS");
+	    JLabel manText2 = new JLabel();
+	    
+	    manText2.setText("<html><center>Use arrow keys to move around<br>"
+	    		+ "Bash enemies off the screen<br>"
+	    		+ "Last player standing wins!</center></html>");
+	    
+	    manText.setFont(new Font("Helvetica",1,15));
+	    manText2.setFont(new Font("Helvetica",0,15));
+	    manText.setBorder(new EmptyBorder(10,10,10,10));
+	    manText2.setBorder(new EmptyBorder(10,10,10,10));
+	    
+	    
+	    manual.add(manText);
+	    manual.add(manText2);
+		
+//		
 		
 		JFrame frame = new JFrame(title);
 		frame.setLayout(new BorderLayout());
 //		frame.add(game, BorderLayout.CENTER);
 		
 		
-
-		frame.add(center, BorderLayout.CENTER);
+		frame.add(manual, BorderLayout.CENTER);
+		frame.add(center, BorderLayout.WEST);
 		frame.add(chat, BorderLayout.EAST);
 		frame.add(southPanel, BorderLayout.SOUTH);
 		frame.setPreferredSize(new Dimension(w, h));
