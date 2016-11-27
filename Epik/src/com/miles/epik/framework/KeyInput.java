@@ -48,7 +48,7 @@ public class KeyInput extends KeyAdapter {
 						tempObject.setVelX(-5);
 					}else{
 						while(tempObject.getVelY() > -10){
-							tempObject.setVelX((tempObject.getVelX())+1);
+							tempObject.setVelX((tempObject.getVelX())-1);
 						}
 					}
 				}

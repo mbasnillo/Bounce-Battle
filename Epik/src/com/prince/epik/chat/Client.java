@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,27 +21,34 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Client {
+public class Client implements KeyListener{
+	
+	JPanel southPanel;
+	JTextField messageBox;
+	String name;
+	DataOutputStream out;
 	public Client(JPanel panel,String serverName, int port, String name){
 		
 		
 		JFrame frame = new JFrame("Setup");
 		    // get the user's input. note that if they press Cancel, 'name' will be null
 		 System.out.printf("The user's name is '%s'.\n", name);
+		 this.name = name;
 	      try{
 	         /* Open a ClientSocket and connect to ServerSocket */
 	         System.out.println("Connecting to " + serverName + " on port " + port);
 	         //creating a new socket for client and binding it to a port
 	         Socket client = new Socket(serverName, port);
 	         
-	         JPanel southPanel = new JPanel();
+	         southPanel = new JPanel();
 	         southPanel.setBackground(Color.BLUE);
 	         southPanel.setLayout(new BorderLayout());
 	         
-	         JTextField messageBox = new JTextField(30);
+	         messageBox = new JTextField(30);
 	         //messageBox.setMinimumSize(new Dimension(200,200));
 	         //messageBox.setMaximumSize(new Dimension(200,200));
 	         messageBox.requestFocusInWindow();
+	         messageBox.addKeyListener(this);
 	         
 	         JTextArea chatBox = new JTextArea();
 	         chatBox.setPreferredSize(new Dimension(100,100));
@@ -66,7 +75,7 @@ public class Client {
 	         System.out.println("Just connected to " + client.getRemoteSocketAddress());
 	         //panel.revalidate();
 	         OutputStream outToServer = client.getOutputStream();
-	         DataOutputStream out = new DataOutputStream(outToServer);
+	         out = new DataOutputStream(outToServer);
 	         out.writeUTF(name+" has connected!\n");
 	         sendMessage.addActionListener(new ActionListener(){
 	        	 public void actionPerformed(ActionEvent event) {
@@ -103,4 +112,40 @@ public class Client {
 	         //System.out.println("Usage: java Client <server ip> <port no.> '<your message name>'");
 	      }
 	   }
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_ENTER){
+			sendMsg(messageBox);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void sendMsg(JTextField messageBox){
+		if (messageBox.getText().length() < 1) {
+            // do nothing
+        } else {
+            try{
+           	 out.writeUTF("<" + name + ">:  " + messageBox.getText()+ "\n");
+            }catch(IOException e){
+           	 System.out.println("Message not Sent\n");
+           	 System.out.println("<" + name + ">:  " + messageBox.getText()+ "\n");
+            }
+            messageBox.setText("");
+        }
+        messageBox.requestFocusInWindow();
+	}
 }
