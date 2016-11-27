@@ -40,32 +40,40 @@ public class Player extends GameObject {
 	}
 
 	public void tick(LinkedList<GameObject> object) {
-		x += velX;
-		y += velY;
-		
-		if(falling || jumping){
-			velY += gravity;
-			
-			if(velY > MAX_SPEED){
-				velY = MAX_SPEED;
-			}
-		}
-		if(gliding){
-			velY -= gravity/2;
-			
-			if(velY > MAX_SPEED){
-				velY = MAX_SPEED;
-			}
-		}
-		if(velX != 0){
-			if(velX > 0) velX--;
-			else if(velX < 0) velX++;
-		}
-		
-		collision(object);
-		if(y >= 2000){
+		if(y >= 500 && is_alive){
 			is_alive = false;
+			udp.send("DEAD="+name);
+			udp.setRunning(false);
 		}
+		
+		
+		
+		if(is_alive){
+			x += velX;
+			y += velY;
+			
+			if(falling || jumping){
+				velY += gravity;
+				
+				if(velY > MAX_SPEED){
+					velY = MAX_SPEED;
+				}
+			}
+			if(gliding){
+				velY -= gravity/2;
+				
+				if(velY > MAX_SPEED){
+					velY = MAX_SPEED;
+				}
+			}
+			if(velX != 0){
+				if(velX > 0) velX--;
+				else if(velX < 0) velX++;
+			}
+			
+			collision(object);
+		}
+		
 		//getPosition();
 	}
 	
@@ -107,12 +115,10 @@ public class Player extends GameObject {
 					x = tempObject.getX() + width;
 					if((velX) < (tempObject.getVelX())){
 						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
-						//tempObject.setVelX(velX*2);
 						velX = -velX;
 					}else if(-(velX) == tempObject.getVelX()){
 						velX = 0;
 						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+0);
-						//tempObject.setVelX(0);
 					}else{
 						velX = -2 * (tempObject.getVelX());
 					}
@@ -122,13 +128,11 @@ public class Player extends GameObject {
 					if((velX) > (tempObject.getVelX())){
 
 						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
-						//tempObject.setVelX(velX*2);
 						velX = -velX;
 					}else if(-(velX) == tempObject.getVelX()){
 						velX = 0;
 
 						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+0);
-						//tempObject.setVelX(0);
 					}else{
 						velX = 2 * (tempObject.getVelX());
 					}
