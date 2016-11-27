@@ -63,9 +63,9 @@ public class UDPClient implements Runnable{
 			serverData=new String(buf);
 			serverData=serverData.trim();			
 
-			if (!serverData.equals("")){
-				System.out.println("Server Data:" +serverData);
-			}
+//			if (!serverData.equals("")){
+//				System.out.println("Server Data:" +serverData);
+//			}
 
 			//Study the following kids. 
 			if (!connected && serverData.startsWith("CONNECTED")){
@@ -80,6 +80,9 @@ public class UDPClient implements Runnable{
 				this.access.getWindow().start.doClick();
 			}if (serverData.startsWith("POSITION")){
 				this.game.updatePlayer(serverData.split("-")[1]);
+			}if (serverData.startsWith("COLLIDE")){
+				this.game.updatePlayerVel(serverData.split("=")[1]);
+				System.out.println(serverData.split("=")[1]);
 			}
 
 		}

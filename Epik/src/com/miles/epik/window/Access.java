@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Access {
 	UDPClient udp;
 	Window window;
-	HashMap<String, Point>  players= new HashMap<String, Point>();
+	HashMap<String, Boolean>  players= new HashMap<String, Boolean>();
 	
 	public Access(){
 	}
@@ -22,7 +22,7 @@ public class Access {
 	
 	public void addPlayer(String name){
 		if(!players.containsKey(name)){			
-			players.put(name,new Point((players.size()+1)*100,(players.size()+1)*100));
+			players.put(name,true);
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class Access {
 		return this.players.toString();
 	}
 	
-	public HashMap<String, Point> getPlayers(){
+	public HashMap<String, Boolean> getPlayers(){
 		return this.players;
 	}
 	

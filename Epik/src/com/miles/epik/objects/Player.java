@@ -2,13 +2,13 @@ package com.miles.epik.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import com.miles.epik.framework.GameObject;
 import com.miles.epik.framework.ObjectId;
 import com.miles.epik.window.Handler;
+import com.miles.epik.window.UDPClient;
 
 public class Player extends GameObject {
 
@@ -21,6 +21,7 @@ public class Player extends GameObject {
 	private float jumpPower = 0;
 	private String name;
 	private Color color;
+	private UDPClient udp;
 	
 	private boolean is_alive = true;
 	
@@ -55,6 +56,10 @@ public class Player extends GameObject {
 			if(velY > MAX_SPEED){
 				velY = MAX_SPEED;
 			}
+		}
+		if(velX != 0){
+			if(velX > 0) velX--;
+			else if(velX < 0) velX++;
 		}
 		
 		collision(object);
@@ -100,24 +105,30 @@ public class Player extends GameObject {
 			if(tempObject.getId() == ObjectId.Player && tempObject != this){
 				if(getBoundsLeft().intersects(tempObject.getFullBounds())){
 					x = tempObject.getX() + width;
-					if(-(velX) > (tempObject.getVelX())){
-						tempObject.setVelX(velX*2);
+					if((velX) < (tempObject.getVelX())){
+						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
+						//tempObject.setVelX(velX*2);
 						velX = -velX;
 					}else if(-(velX) == tempObject.getVelX()){
 						velX = 0;
-						tempObject.setVelX(0);
+						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+0);
+						//tempObject.setVelX(0);
 					}else{
 						velX = -2 * (tempObject.getVelX());
 					}
 				}
 				if(getBoundsRight().intersects(tempObject.getFullBounds())){
 					x = tempObject.getX() - width;
-					if((velX) > -(tempObject.getVelX())){
-						tempObject.setVelX(velX*2);
+					if((velX) > (tempObject.getVelX())){
+
+						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
+						//tempObject.setVelX(velX*2);
 						velX = -velX;
 					}else if(-(velX) == tempObject.getVelX()){
 						velX = 0;
-						tempObject.setVelX(0);
+
+						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+0);
+						//tempObject.setVelX(0);
 					}else{
 						velX = 2 * (tempObject.getVelX());
 					}
@@ -205,6 +216,10 @@ public class Player extends GameObject {
 	
 	public boolean getAlive(){
 		return this.is_alive;
+	}
+	
+	public void setUDP(UDPClient udp){
+		this.udp = udp;
 	}
 	
 }

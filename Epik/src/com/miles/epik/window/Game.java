@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -52,9 +53,10 @@ public class Game extends Canvas implements Runnable{
 			Player newPlayer;
 			if(newName.equals(name)){
 				newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Player, newName);
+				newPlayer.setUDP(udp);
 			}
 			else{
-				newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Test, newName);
+				newPlayer = new Player((i)*100,(i)*100, handler, ObjectId.Player, newName);
 			}
 			newPlayer.setColor(colors[(i-1)%colors.length]);
 			this.handler.addObject(newPlayer);
@@ -78,6 +80,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run(){
+		Toolkit.getDefaultToolkit().sync();
 		init();
 		this.requestFocus();
 		long lastTime = System.nanoTime();
@@ -171,6 +174,18 @@ public class Game extends Canvas implements Runnable{
 			float newY = Float.parseFloat(d[1].split(",")[1]);
 			this.handler.getPlayers().get(nameToBeUpdated).setX(newX);
 			this.handler.getPlayers().get(nameToBeUpdated).setY(newY);
+		}
+		else if(!nameToBeUpdated.equals(name)){
+			System.out.println("ERRRRRROOOORRR!");
+		}
+	}
+	public void updatePlayerVel(String data){
+		String nameToBeUpdated;
+		String[] d = data.split(" ");
+		nameToBeUpdated = d[0].trim();
+		if(handler.getPlayers().containsKey(nameToBeUpdated)){
+			float newVelX = Float.parseFloat(d[1].split(",")[0]);
+			this.handler.getPlayers().get(nameToBeUpdated).setVelX(newVelX);
 		}
 		else if(!nameToBeUpdated.equals(name)){
 			System.out.println("ERRRRRROOOORRR!");

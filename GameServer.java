@@ -171,6 +171,9 @@ public class GameServer implements Runnable, Constants{
 					  if(playerData.startsWith("POSITION")){
 					  	broadcast(playerData);
 					  }
+					  if(playerData.startsWith("COLLIDE")){
+					  	broadcast(playerData);
+					  }
 					  break;
 			}				  
 		}
