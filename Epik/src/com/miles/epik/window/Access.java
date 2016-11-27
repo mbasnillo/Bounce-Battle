@@ -42,4 +42,8 @@ public class Access {
 		return this.players;
 	}
 	
+	public void kill(String name){
+		players.put(name, false);
+	}
+	
 }

@@ -83,12 +83,17 @@ public class UDPClient implements Runnable{
 			}if (serverData.startsWith("COLLIDE")){
 				this.game.updatePlayerVel(serverData.split("=")[1]);
 				System.out.println(serverData.split("=")[1]);
+			}if (serverData.startsWith("DEAD")){
+				this.access.kill(serverData.split("=")[1]);
 			}
 
 		}
 	}
 	public void setGame(Game game){
 		this.game = game;
+	}
+	public void setRunning(boolean bool){
+		this.running = bool;
 	}
 	
 }
