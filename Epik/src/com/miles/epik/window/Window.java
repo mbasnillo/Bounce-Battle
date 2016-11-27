@@ -134,6 +134,7 @@ public class Window {
 		     		//game.setMaximumSize(new Dimension(w, h));
 		     		//scrollPane.setVisible(false);
 		     		frame.remove(center);
+		     		frame.remove(manual);
 		    		frame.add(game, BorderLayout.CENTER);
 		    		udp.send("GAME START");
 		    		frame.revalidate();
