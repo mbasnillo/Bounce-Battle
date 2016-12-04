@@ -24,6 +24,7 @@ import com.prince.epik.chat.Client;
 public class Window {
 	JTable table;
 	DefaultTableModel dtm = new DefaultTableModel(0,0);
+	DefaultTableModel sb = new DefaultTableModel(0,0);
 	UDPClient udp;
 	Access access;
 	Object[][] data;
@@ -94,6 +95,7 @@ public class Window {
 	    manText2.setFont(new Font("Helvetica",0,15));
 	    manText.setBorder(new EmptyBorder(10,10,10,10));
 	    manText2.setBorder(new EmptyBorder(10,10,10,10));
+	    manual.setSize(new Dimension(275, 200));
 	    
 	    
 	    manual.add(manText);
@@ -110,12 +112,12 @@ public class Window {
 		frame.add(center, BorderLayout.WEST);
 		frame.add(chat, BorderLayout.EAST);
 		frame.add(southPanel, BorderLayout.SOUTH);
-		frame.setPreferredSize(new Dimension(w, h));
+		frame.setSize(new Dimension(w, h+30));
  		frame.setMinimumSize(new Dimension(w, h));
  		frame.setMaximumSize(new Dimension(w, h));
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
@@ -136,16 +138,38 @@ public class Window {
 		     		frame.remove(center);
 		     		frame.remove(manual);
 		     		frame.remove(southPanel);
-		     		//
-		     		JPanel sBoard = new JPanel();
-		     		sBoard.setBackground(Color.RED);
-		     		sBoard.setPreferredSize(new Dimension(0,50));
-		     		frame.add(sBoard, BorderLayout.SOUTH);
-		     		//
+		     		
+		     		//	initialize table and scrollpane
+		    		JTable scoreBoard = new JTable();
+		     		JScrollPane scroll = new JScrollPane(scoreBoard);
+		     		
+		     		//	add column names for table model
+		    		String[] colnames = {"Player", "Status"};
+		    		sb.setColumnIdentifiers(colnames);
+		    		
+		    		//	populate table with names of players, in reference to 'dtm'
+		    		for (int j = 0 ; j < dtm.getRowCount(); j++){
+		    			Object[] newData = {"",""};
+						sb.addRow(newData);
+		    			sb.setValueAt(dtm.getValueAt(j, 0), j, 0);
+		    		}
+		    		
+		    		//	modify sizes of tables and panes
+					scroll.setSize(new Dimension(w, 30));
+					scoreBoard.setModel(sb);
+					scoreBoard.setSize(new Dimension(0,30));
+					scoreBoard.setPreferredScrollableViewportSize(scroll.getSize());
+					scoreBoard.setFillsViewportHeight(true);
+		     		
+		     		//	add to frame
+		    		frame.add(scroll, BorderLayout.SOUTH);
+		     		
+		    		//
 		    		frame.add(game, BorderLayout.CENTER);
 		    		udp.send("GAME START");
 		    		frame.revalidate();
 		    		frame.repaint();
+		    		frame.pack();
 		     		game.start();
 	       		}
 	         }
