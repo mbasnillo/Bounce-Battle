@@ -80,7 +80,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	public void run(){
-		
+
 		init();
 		this.requestFocus();
 		long lastTime = System.nanoTime();
