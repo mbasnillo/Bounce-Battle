@@ -1,14 +1,15 @@
 package com.miles.epik.window;
 
-import java.awt.Point;
 import java.util.HashMap;
 
-import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 public class Access {
 	UDPClient udp;
 	Window window;
 	HashMap<String, Boolean>  players= new HashMap<String, Boolean>();
+	HashMap<String, Integer> score = new HashMap<String, Integer>();
+	JTable scoreBoard;
 	
 	public Access(){
 	}
@@ -18,13 +19,21 @@ public class Access {
 		this.window = window;
 	}
 	
+	
 	public Window getWindow(){
 		return this.window;
+	}
+	
+	public HashMap<String, Integer> getScore(){
+		return this.score;
 	}
 	
 	public void addPlayer(String name){
 		if(!players.containsKey(name)){			
 			players.put(name,true);
+		}
+		if(!score.containsKey(name)){
+			score.put(name,0);
 		}
 	}
 	

@@ -30,6 +30,7 @@ public class Game extends Canvas implements Runnable{
 	UDPClient udp;
 	private Player user;
 	Access access;
+	Window window;
 	private Color[] colors = {Color.BLUE, Color.RED, Color.GREEN};
 	
 	public static int WIDTH, HEIGHT;
@@ -130,11 +131,20 @@ public class Game extends Canvas implements Runnable{
 				if(access.getPlayers().get(checkName)){
 					JOptionPane.showMessageDialog(null,checkName + " HAS WON!");
 					System.out.println(checkName + " HAS WON!");
+					access.getScore().put(checkName, access.getScore().get(checkName)+ 1);
+					access.getWindow().updateScore();
+					//do reset here
+					int i = 1;
+					for(String newName : access.getPlayers().keySet()){
+						if(newName.equals(name)) break;
+						i++;
+					}
+					user.setX(i*100);
+					user.setY(i*100);
 					//exit();
 				} 
 			}
-			running = false;
-			
+			running = false;		
 		}
 	}
 	
@@ -174,6 +184,10 @@ public class Game extends Canvas implements Runnable{
 	
 	public void setUDP(UDPClient udp){
 		this.udp = udp;
+	}
+	
+	public void setWindow(Window window){
+		this.window = window;
 	}
 	
 	public void setAccess(Access access){

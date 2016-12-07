@@ -31,6 +31,8 @@ public class Window {
 	JPanel center;
 	String playerName;
 	JButton start;
+	JTable scoreBoard;
+	
 	boolean gameStarted = false;
 	
 	public Window(Access access, int w, int h, String title, String serverName, int port, String name){
@@ -140,11 +142,11 @@ public class Window {
 		     		frame.remove(southPanel);
 		     		
 		     		//	initialize table and scrollpane
-		    		JTable scoreBoard = new JTable();
+		    		scoreBoard = new JTable();
 		     		JScrollPane scroll = new JScrollPane(scoreBoard);
 		     		
 		     		//	add column names for table model
-		    		String[] colnames = {"Player", "Status"};
+		    		String[] colnames = {"Player", "Score"};
 		    		sb.setColumnIdentifiers(colnames);
 		    		
 		    		//	populate table with names of players, in reference to 'dtm'
@@ -152,6 +154,7 @@ public class Window {
 		    			Object[] newData = {"",""};
 						sb.addRow(newData);
 		    			sb.setValueAt(dtm.getValueAt(j, 0), j, 0);
+		    			sb.setValueAt(access.getScore().get(dtm.getValueAt(j, 0)), j, 1);
 		    		}
 		    		
 		    		//	modify sizes of tables and panes
@@ -223,4 +226,14 @@ public class Window {
          }
          start.setEnabled(flag);
 	}
+	
+	public void updateScore(){
+		for (int j = 0 ; j < dtm.getRowCount(); j++){
+//			Object[] newData = {"",""};
+//			sb.addRow(newData);
+//			sb.setValueAt(dtm.getValueAt(j, 0), j, 0);
+			sb.setValueAt(access.getScore().get(dtm.getValueAt(j, 0)), j, 1);
+		}
+	}
+	
 }

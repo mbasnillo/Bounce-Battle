@@ -40,7 +40,7 @@ public class Player extends GameObject {
 	public void getPosition(){
 		System.out.println(x + " , " + y);
 	}
-
+	
 	public void tick(LinkedList<GameObject> object) {
 		if(y >= 500 && is_alive){
 			//JOptionPane.showMessageDialog(null, this.name+ " has died");
