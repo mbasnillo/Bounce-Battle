@@ -92,8 +92,9 @@ public class Window {
 //
 	
 		JPanel manual = new JPanel();
-		manual.add(Box.createHorizontalGlue());
 	    BufferedImage img;
+	    
+		manual.add(Box.createHorizontalGlue());
 	    manual.setSize(new Dimension(275, 200));
 	    
 		try {                
