@@ -4,17 +4,23 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import javax.imageio.ImageIO;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -58,9 +64,40 @@ public class Client implements KeyListener{
 	         chatBox.setLineWrap(true);
 
 	         JButton sendMessage = new JButton("Send Message");
+	         JButton help = new JButton("Help?");
+	         JPanel btnPanel = new JPanel();
+	         btnPanel.setLayout(new GridLayout(2,1));
+	         
+	         help.addActionListener(new ActionListener(){
+	        	 public void actionPerformed(ActionEvent event) {
+					JFrame helpFrame = new JFrame();
+					JPanel manual = new JPanel();
+				    BufferedImage img;
+					
+					manual.add(Box.createHorizontalGlue());
+				    
+					try {                
+						img = ImageIO.read(getClass().getResource("/images/manual.png"));
+						JLabel man = new JLabel(new ImageIcon(img));
+					    manual.add(man);
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+					
+					helpFrame.add(manual);
+					helpFrame.pack();
+					helpFrame.setSize(new Dimension(500,400));				
+					helpFrame.setResizable(false);
+					helpFrame.setLocationRelativeTo(null);
+					helpFrame.setVisible(true);
+	        	 }
+	         });
+	         
+	         btnPanel.add(sendMessage);
+	         btnPanel.add(help);
 	         
 	         southPanel.add(messageBox,BorderLayout.CENTER);
-	         southPanel.add(sendMessage,BorderLayout.EAST);
+	         southPanel.add(btnPanel,BorderLayout.EAST);
 	         southPanel.setMinimumSize(new Dimension(100,20));
 	         southPanel.setMaximumSize(new Dimension(100,20));
 	           // panel = new JPanel();
