@@ -30,6 +30,7 @@ import com.prince.epik.chat.Client;
 
 public class Window {
 	JTable table;
+	JFrame frame;
 	DefaultTableModel dtm = new DefaultTableModel(0,0);
 	DefaultTableModel sb = new DefaultTableModel(0,0);
 	UDPClient udp;
@@ -107,7 +108,7 @@ public class Window {
 		
 //		
 		
-		JFrame frame = new JFrame(title);
+		frame = new JFrame(title);
 		frame.setLayout(new BorderLayout());
 //		frame.add(game, BorderLayout.CENTER);
 		
@@ -234,5 +235,10 @@ public class Window {
 			sb.setValueAt(access.getScore().get(dtm.getValueAt(j, 0)), j, 1);
 		}
 	}
-	
+	public JPanel getCenter(){
+		return this.center;
+	}
+	public JFrame getFrame(){
+		return this.frame;
+	}
 }

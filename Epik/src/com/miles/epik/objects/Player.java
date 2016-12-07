@@ -43,6 +43,7 @@ public class Player extends GameObject {
 	}
 	
 	public void tick(LinkedList<GameObject> object) {
+		//if(x < 15) x = 100;
 		if(y >= 500 && is_alive){
 
 			is_alive = false;
@@ -123,7 +124,7 @@ public class Player extends GameObject {
 				if(getBoundsLeft().intersects(tempObject.getFullBounds())){
 					x = tempObject.getX() + width;
 					if((velX) < (tempObject.getVelX())){
-						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
+						if(udp!=null)udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
 						velX = -velX;
 					}else if(-(velX) == tempObject.getVelX()){
 						velX = 0;
@@ -136,7 +137,7 @@ public class Player extends GameObject {
 					x = tempObject.getX() - width;
 					if((velX) > (tempObject.getVelX())){
 
-						udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
+						if(udp!=null)udp.send("COLLIDE="+ ((Player)tempObject).getName()+" "+velX*2);
 						velX = -velX;
 					}else if(-(velX) == tempObject.getVelX()){
 						velX = 0;

@@ -133,10 +133,25 @@ public class Game extends Canvas implements Runnable{
 					access.getScore().put(checkName, access.getScore().get(checkName)+ 1);
 					access.getWindow().updateScore();
 					//do reset here
-					
-					
 					//exit();
 				} 
+			}
+			if(access.checkWinner()){
+				String[] options = new String[] {"Yes", "No"};
+			    int response = JOptionPane.showOptionDialog(null, access.getWinner() + " HAS WON!\nWant to play again?", name,
+			        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+			        null, options, options[0]);
+				//JOptionPane.showMessageDialog(null,access.getWinner() + " HAS WON!",name, JOptionPane.INFORMATION_MESSAGE);
+				//running = false;
+			    switch(response){
+			    case 0: access.resetScore();
+			    	access.getWindow().updateScore();
+			    	break;
+			    case 1:	access.getWindow().getFrame().setVisible(false);
+			    	running = false;
+			    	break;
+			    }
+				//access.getWindow().getFrame().setVisible(false);
 			}
 			int i = 1;
 			for(String newName : access.getPlayers().keySet()){
@@ -203,6 +218,7 @@ public class Game extends Canvas implements Runnable{
 		if(handler.getPlayers().containsKey(nameToBeUpdated) && !nameToBeUpdated.equals(name)){
 			float newX = Float.parseFloat(d[1].split(",")[0]);
 			float newY = Float.parseFloat(d[1].split(",")[1]);
+			if(newX < 10) newX = 10;
 			this.handler.getPlayers().get(nameToBeUpdated).setX(newX);
 			this.handler.getPlayers().get(nameToBeUpdated).setY(newY);
 		}

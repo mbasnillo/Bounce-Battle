@@ -63,4 +63,27 @@ public class Access {
 		}
 	}
 	
+	public boolean checkWinner(){
+		for(String n : score.keySet()){
+			if(score.get(n) >= 3){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String getWinner(){
+		for(String n : score.keySet()){
+			if(score.get(n) >= 3){
+				return n;
+			}
+		}
+		return "N/A";
+	}
+	
+	public void resetScore(){
+		for(String n : score.keySet()){
+			score.put(n,0);
+		}
+	}
 }
