@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +19,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import com.prince.epik.chat.Client;
 
@@ -86,22 +93,17 @@ public class Window {
 	
 		JPanel manual = new JPanel();
 		manual.add(Box.createHorizontalGlue());
-	    JLabel manText = new JLabel("MECHANICS");
-	    JLabel manText2 = new JLabel();
-	    
-	    manText2.setText("<html><center>Use arrow keys to move around<br>"
-	    		+ "Bash enemies off the screen<br>"
-	    		+ "Last player standing wins!</center></html>");
-	    
-	    manText.setFont(new Font("Helvetica",1,15));
-	    manText2.setFont(new Font("Helvetica",0,15));
-	    manText.setBorder(new EmptyBorder(10,10,10,10));
-	    manText2.setBorder(new EmptyBorder(10,10,10,10));
+	    BufferedImage img;
 	    manual.setSize(new Dimension(275, 200));
 	    
-	    
-	    manual.add(manText);
-	    manual.add(manText2);
+		try {                
+			img = ImageIO.read(getClass().getResource("/images/manual.png"));
+			JLabel man = new JLabel(new ImageIcon(img));
+			man.setSize(new Dimension(270,200));
+		    manual.add(man);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 		
 //		
 		
