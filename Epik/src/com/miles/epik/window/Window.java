@@ -229,9 +229,6 @@ public class Window {
 	
 	public void updateScore(){
 		for (int j = 0 ; j < dtm.getRowCount(); j++){
-//			Object[] newData = {"",""};
-//			sb.addRow(newData);
-//			sb.setValueAt(dtm.getValueAt(j, 0), j, 0);
 			sb.setValueAt(access.getScore().get(dtm.getValueAt(j, 0)), j, 1);
 		}
 	}

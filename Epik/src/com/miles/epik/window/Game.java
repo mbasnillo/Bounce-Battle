@@ -18,7 +18,6 @@ import com.miles.epik.objects.Player;
 public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = 3867919631110141462L;
-
 	public static final int PORT=4444;
 	DatagramSocket socket;
 	private boolean running = false;
@@ -129,22 +128,26 @@ public class Game extends Canvas implements Runnable{
 		if(count == 1){
 			for(String checkName : access.getPlayers().keySet()){
 				if(access.getPlayers().get(checkName)){
-					JOptionPane.showMessageDialog(null,checkName + " HAS WON!");
-					System.out.println(checkName + " HAS WON!");
+					//JOptionPane.showMessageDialog(null,checkName + " HAS WON!",name, JOptionPane.INFORMATION_MESSAGE);
+					//System.out.println(checkName + " HAS WON!");
 					access.getScore().put(checkName, access.getScore().get(checkName)+ 1);
 					access.getWindow().updateScore();
 					//do reset here
-					int i = 1;
-					for(String newName : access.getPlayers().keySet()){
-						if(newName.equals(name)) break;
-						i++;
-					}
-					user.setX(i*100);
-					user.setY(i*100);
+					
+					
 					//exit();
 				} 
 			}
-			running = false;		
+			int i = 1;
+			for(String newName : access.getPlayers().keySet()){
+				if(newName.equals(name)) break;
+				i++;
+			}
+			user.setX(i*100);
+			user.setY(100);
+			user.setAlive(true);
+			access.resetLife();
+			//running = false;		
 		}
 	}
 	

@@ -24,6 +24,7 @@ public class Player extends GameObject {
 	private String name;
 	private Color color;
 	private UDPClient udp;
+	int some = 0;
 	
 	private boolean is_alive = true;
 	
@@ -43,10 +44,17 @@ public class Player extends GameObject {
 	
 	public void tick(LinkedList<GameObject> object) {
 		if(y >= 500 && is_alive){
-			//JOptionPane.showMessageDialog(null, this.name+ " has died");
-			udp.send("DEAD="+name);
+
 			is_alive = false;
-			udp.setRunning(false);
+			//JOptionPane.showMessageDialog(null, this.name+ " has died");
+			if(udp!=null)udp.send("DEAD="+name);
+			else {
+				//JOptionPane.showMessageDialog(null,"udp gone");
+			}
+			//udp.send(Integer.toString(some));
+			System.out.println(some);
+			some++;
+			//udp.setRunning(false);
 		}
 		
 		if(is_alive){
@@ -225,6 +233,9 @@ public class Player extends GameObject {
 	
 	public void setUDP(UDPClient udp){
 		this.udp = udp;
+	}
+	public void setAlive(Boolean bool){
+		this.is_alive = bool;
 	}
 	
 }

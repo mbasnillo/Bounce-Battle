@@ -19,7 +19,6 @@ public class Access {
 		this.window = window;
 	}
 	
-	
 	public Window getWindow(){
 		return this.window;
 	}
@@ -56,6 +55,12 @@ public class Access {
 	public void kill(String name){
 		players.put(name, false);
 		//JOptionPane.showMessageDialog(null, name+ " has been killed");
+	}
+	
+	public void resetLife(){
+		for(String n : players.keySet()){
+			players.put(n, true);
+		}
 	}
 	
 }

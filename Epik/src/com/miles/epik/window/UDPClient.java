@@ -87,6 +87,7 @@ public class UDPClient implements Runnable{
 				System.out.println(serverData.split("=")[1]);
 			}if (serverData.startsWith("DEAD")){
 				this.access.kill(serverData.split("=")[1]);
+				System.out.println("kill "+ serverData.split("=")[1]);
 			}
 		}
 	}
