@@ -3,6 +3,8 @@ package com.miles.epik.window;
 import java.awt.Point;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 public class Access {
 	UDPClient udp;
 	Window window;
@@ -44,6 +46,7 @@ public class Access {
 	
 	public void kill(String name){
 		players.put(name, false);
+		//JOptionPane.showMessageDialog(null, name+ " has been killed");
 	}
 	
 }

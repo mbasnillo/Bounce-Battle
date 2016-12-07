@@ -5,6 +5,8 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+import javax.swing.JOptionPane;
+
 public class UDPClient implements Runnable{
 	DatagramSocket socket;
 	String server, name,serverData;
@@ -86,7 +88,6 @@ public class UDPClient implements Runnable{
 			}if (serverData.startsWith("DEAD")){
 				this.access.kill(serverData.split("=")[1]);
 			}
-
 		}
 	}
 	public void setGame(Game game){

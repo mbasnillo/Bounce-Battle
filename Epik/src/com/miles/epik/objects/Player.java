@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import javax.swing.JOptionPane;
+
 import com.miles.epik.framework.GameObject;
 import com.miles.epik.framework.ObjectId;
 import com.miles.epik.window.Handler;
@@ -41,12 +43,11 @@ public class Player extends GameObject {
 
 	public void tick(LinkedList<GameObject> object) {
 		if(y >= 500 && is_alive){
-			is_alive = false;
+			//JOptionPane.showMessageDialog(null, this.name+ " has died");
 			udp.send("DEAD="+name);
+			is_alive = false;
 			udp.setRunning(false);
 		}
-		
-		
 		
 		if(is_alive){
 			x += velX;
